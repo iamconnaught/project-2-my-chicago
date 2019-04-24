@@ -28,16 +28,19 @@ After logging in, users will be brought to their profile(show) page that contain
 
 For a user to create a new experience they will be redirected to a page with a form requiring a title for the experience, an image and a text box to tell the story of their experience at this location.
 
+![alt text](https://i.imgur.com/TnAPbF1.jpg)
 
 ### Experience (experience - show)
 
 When created, the user will be redirected to the show page for that experience. This page displays the title, image and story as well as the username of the uploader.
 
+![alt text](https://i.imgur.com/EyXL9fn.jpg)
 
 ### Indexes (experience - index, user - index)
 
 On all pages the nav will give users the opportunity to access the index pages for both the Experiences and the Users. 
 
+![alt text](https://i.imgur.com/8Xmt9HJ.jpg)
 
 ### Edit/Delete
 
