@@ -19,7 +19,14 @@ app.use('/experiences', expController);
 const userController = require('./controllers/userController');
 app.use('/users', userController)
 
-
+app.get('/mychicago', async (req,res) => {
+	try {
+		res.render('welcome.ejs')
+		
+	} catch (err){
+		res.send(err)
+	}
+})
 
 
 app.listen(3000, () => {
