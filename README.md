@@ -22,6 +22,7 @@ Users will enter an existing username and password.
 
 After logging in, users will be brought to their profile(show) page that contains a list of uploaded experiences as well as a link to create a new experience.
 
+![alt text](https://i.imgur.com/lvR1HpG.jpg)
 
 ### Upload (experience - new/create)
 
