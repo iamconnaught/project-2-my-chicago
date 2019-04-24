@@ -3,6 +3,8 @@
 Welcome
 Users will open to a welcome page, where they can log in or register. On this page there will also be a link to all of the experiences that have been uploaded.
 
+![alt text](https://i.imgur.com/yPNK0ml.jpg)
+
 Register
 Users will be required to create a unique username and pasword.
 
@@ -23,6 +25,7 @@ On all pages the nav will give users the opportunity to access the index pages f
 
 Edit/Delete
 Users can edit or delete their own experiences through links on the experience show page
+
 
 
 
