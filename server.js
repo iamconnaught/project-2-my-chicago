@@ -12,11 +12,15 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false
 }))
+app.use(express.static('public'));
 
-// const expController = require('./controllers/expController');
-// app.use('/experiences', expController);
-// const userController = require('./controllers/userController');
-// app.use('/users', userController)
+const expController = require('./controllers/expController');
+app.use('/experiences', expController);
+const userController = require('./controllers/userController');
+app.use('/users', userController)
+
+
+
 
 app.listen(3000, () => {
 	console.log('listening on port 3000');

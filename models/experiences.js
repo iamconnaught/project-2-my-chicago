@@ -12,4 +12,4 @@ const expSchema = mongoose.Schema({
 
 const Experience = mongoose.model('Experience', expSchema)
 
-module.exports = Article;
+module.exports = Experience;
