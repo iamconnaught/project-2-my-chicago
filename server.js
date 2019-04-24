@@ -28,6 +28,14 @@ app.get('/mychicago', async (req,res) => {
 	}
 })
 
+app.get('/mychicago/login', async (req,res) => {
+	try {
+		res.render('login.ejs')	
+	} catch (err){
+		res.send(err)
+	}
+})
+
 
 app.listen(3000, () => {
 	console.log('listening on port 3000');

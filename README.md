@@ -16,6 +16,7 @@ Users will be required to create a unique username and pasword.
 
 Users will enter an existing username and password.
 
+![alt text](https://i.imgur.com/8ggEAKC.jpg)
 
 ### Profile (user - show)
 
