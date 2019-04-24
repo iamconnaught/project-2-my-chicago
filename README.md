@@ -46,6 +46,8 @@ On all pages the nav will give users the opportunity to access the index pages f
 
 Users can edit or delete their own experiences through links on the experience show page
 
+![alt text](https://i.imgur.com/0k0OEnP.jpg)
+
 
 
 
