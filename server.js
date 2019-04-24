@@ -12,7 +12,7 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false
 }))
-app.use(express.static('/public'));
+app.use(express.static('public'));
 
 const expController = require('./controllers/expController');
 app.use('/experiences', expController);
