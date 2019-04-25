@@ -65,11 +65,15 @@ router.get('/:id', async(req, res, next)=>{
 		// 	}))
 
 
-		const foundUser = await User.findOne({'experiences._id': req.params.id})
+		const foundUser = await User.findById(req.session.userDbId)
 			.populate({path: 'experience', match: {_id: req.params.id}})
 
 		console.log(foundUser);
-		res.send('check terminal')
+		res.render('experiences/show.ejs',{
+			user: foundUser,
+			message: 'you did it',
+			experience: foundUser.experience
+		})
 			// res.render('experiences/show.ejs', {
 			// 	user: foundUser,
 			// 	experience: foundUser.experiences[0]
