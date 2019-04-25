@@ -36,6 +36,15 @@ app.get('/mychicago/login', async (req,res) => {
 	}
 })
 
+app.post('/mychicago/login', (req,res) => {
+	req.session.username = req.body.username;
+	req.session.logged = true;
+	res.redirect('/users')
+	console.log(req.session);
+})
+
+
+
 
 app.listen(3000, () => {
 	console.log('listening on port 3000');
