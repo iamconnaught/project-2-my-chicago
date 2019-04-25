@@ -43,6 +43,9 @@ app.post('/mychicago/login', (req,res) => {
 	console.log(req.session);
 })
 
+
+
+
 app.listen(3000, () => {
 	console.log('listening on port 3000');
 })
