@@ -8,19 +8,22 @@ const User = require('../models/users')
 //NEW
 router.get('/new', (req, res)=> {
 	res.render('experiences/new.ejs');
-})
+});
 
 //CREATE
 router.post('/', async(req,res)=>{
 	const createdExperience = await Experience.create(req.body);
-	res.redirect('/experiences',{
-		experience: createdExperience
-	})
-})
+	res.redirect('/experiences');
+});
 
 
 //INDEX
-
+router.get('/', async(req,res)=>{
+	const foundExperiences =  await Experience.find({});
+	res.render('experiences/index.ejs',{
+		experience: foundExperiences
+	})
+});
 
 //SHOW
 
