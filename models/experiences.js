@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const expSchema = mongoose.Schema({
 	title: String,
 	img: {
-		data:Buffer,
+		data: Buffer,
 		contentType: String
 	},
 	body: String,

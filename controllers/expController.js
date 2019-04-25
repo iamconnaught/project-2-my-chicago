@@ -18,14 +18,17 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 	try {
 		const filePath = './' + req.file.path
 		const thisExp = new Experience(req.body)
-		// thisExp.title = req.body.title
+		thisExp.title = req.body.title
 		console.log(thisExp + "============");
 		thisExp.img.data = fs.readFileSync(filePath)
-		thisExp.img.contentType = req.file.mimetype
+		
 		await thisExp.save();
 		const foundUser = await User.findById(req.session.userDbId)
 		foundUser.experience.push(thisExp);
 		await foundUser.save();
+		// await fs.unlink(thisExp, (err) => {
+		// 	if(err) throw err;
+		// })
 		console.log(foundUser + "=========");
 
 
@@ -33,7 +36,7 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 
 		// user.save
 
-		res.send('upload done')
+		res.redirect('/experiences')
 	} catch(err){
 		next(err);
 	}
@@ -54,6 +57,9 @@ router.get('/', async(req,res,next)=>{
 	
 });
 
+router.get('/:id/photo', )
+
+
 //SHOW
 router.get('/:id', async(req, res, next)=>{
 	try {
@@ -67,8 +73,8 @@ router.get('/:id', async(req, res, next)=>{
 
 		const foundUser = await User.findById(req.session.userDbId)
 			.populate({path: 'experience', match: {_id: req.params.id}})
-
 		console.log(foundUser);
+		// res.contentType(experience.img.contentType)
 		res.render('experiences/show.ejs',{
 			user: foundUser,
 			message: 'you did it',
