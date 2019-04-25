@@ -5,7 +5,7 @@ const expSchema = mongoose.Schema({
 	img: {
 		data:Buffer,
 		contentType: String
-	}
+	},
 	body: String,
 	date: {
 		type: Date,
