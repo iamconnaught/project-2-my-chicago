@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const expSchema = mongoose.Schema({
 	title: String,
-	img: Buffer,
+	img: {
+		data:Buffer,
+		contentType: String
+	}
 	body: String,
 	date: {
 		type: Date,
