@@ -1,9 +1,16 @@
 <%- include ./partials/header.ejs %>
 
-	<h1>Login with partial header</h1>
-	<form action="/mychicago/login" method="POST">
+	<h1>Login</h1>
+	<form action="/auth/login" method="POST">
 		<input type="text" name="username" placeholder="username">
 		<button>Login</button>
+	</form>
+
+	<h1>Register</h1>
+	<form action="/auth/register" method="POST">
+		<input type="text" name="username" placeholder="username">
+		<input type="password" name="password" placeholder="password">
+		<button>Register</button>
 	</form>
 
 </body>
