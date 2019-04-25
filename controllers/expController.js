@@ -12,16 +12,27 @@ router.get('/new', (req, res)=> {
 	res.render('experiences/new.ejs');
 });
 
-//CREATE route
+//CREATE IMAGE UPLOAD 
 router.post('/', upload.single('img'), async(req, res, next)=>{
 	console.log("uploading....===============");
 	try {
 		const filePath = './' + req.file.path
-		const thisExp = new Experience
-		thisExp.title = req.body.title
+		const thisExp = new Experience(req.body)
+		// thisExp.title = req.body.title
+		console.log(thisExp + "============");
 		thisExp.img.data = fs.readFileSync(filePath)
 		thisExp.img.contentType = req.file.mimetype
 		await thisExp.save();
+		const foundUser = await User.findById(req.session.userDbId)
+		foundUser.experience.push(thisExp);
+		await foundUser.save();
+		console.log(foundUser + "=========");
+
+
+		/// user.push this exp
+
+		// user.save
+
 		res.send('upload done')
 	} catch(err){
 		next(err);
@@ -44,16 +55,34 @@ router.get('/', async(req,res,next)=>{
 });
 
 //SHOW
-router.get('/:id', async(req, res)=>{
+router.get('/:id', async(req, res, next)=>{
 	try {
-		const foundExperience = await Experience.findById(req.params.id)
-		res.render('experiences/show.ejs', {
-			experience: foundExperience
-			})
-		} catch(err){
-			res.send(err);
-		}
-})
+		// const foundUser = await User.findOne({'experience': req.params.id})
+		// 	.populate({path: 'experience', match: {_id: req.params.id}})
+		// 	.exec(res.render('experiences/show.ejs', {
+		// 		user: foundUser,
+		// 		experience: foundUser.experiences[0]
+		// 	}))
+
+
+		const foundUser = await User.findOne({'experiences._id': req.params.id})
+			.populate({path: 'experience', match: {_id: req.params.id}})
+
+		console.log(foundUser);
+		res.send('check terminal')
+			// res.render('experiences/show.ejs', {
+			// 	user: foundUser,
+			// 	experience: foundUser.experiences[0]
+			// })
+			
+		// const foundExperience = await Experience.findById(req.params.id)
+		// res.render('experiences/show.ejs', {
+		// 	experience: foundExperience
+		// 	})
+	} catch(err){
+		next(err);
+	}
+});
 
 
 //EDIT
