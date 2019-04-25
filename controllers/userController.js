@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/users')
 const Experience = require('../models/experiences')
 
+
 router.get('/', async (req,res) => {
 	try {
 		const foundUsers = await User.find({});
@@ -14,7 +15,17 @@ router.get('/', async (req,res) => {
 	}
 })
 
+router.get('/:id', async (req,res) => {
+	try {
+		const foundUser = await User.findById(req.session.userDbId);
+		res.render('users/show.ejs', {
+			user: foundUser
+		})
 
+	} catch (err){
+		res.send(err)
+	}
+})
 
 
 
