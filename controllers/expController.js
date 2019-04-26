@@ -100,14 +100,15 @@ router.get('/:id/edit', async (req,res, next) => {
 })
 
 
-//UPDATE
-// router.put('/:id', async (req,res, next) => {
-// 	try {
-// 		const updatedExperience = await 
-// 	} catch (err){
-// 		next(err)
-// 	}
-// })
+// UPDATE
+router.put('/:id', async (req,res, next) => {
+	try {
+		const updatedExperience = await Experience.findByIdAndUpdate(req.params.id, req.body, {new: true})
+		res.redirect('/experiences/' + req.params.id)
+	} catch (err){
+		next(err)
+	}
+})
 
 
 //DELETE
