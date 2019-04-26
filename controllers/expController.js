@@ -14,12 +14,14 @@ router.get('/new', (req, res)=> {
 
 //CREATE IMAGE UPLOAD 
 router.post('/', upload.single('img'), async(req, res, next)=>{
-	console.log("uploading....===============");
+	// console.log("uploading....===============");
 	try {
 		const filePath = './' + req.file.path
 		const thisExp = new Experience(req.body)
 		thisExp.title = req.body.title
-		console.log(thisExp + "============");
+		thisExp.body = req.body.body
+		thisExp.date = req.body.toDateString()
+		// console.log(thisExp + "============");
 		thisExp.img.data = fs.readFileSync(filePath)
 		
 		await thisExp.save();
@@ -27,15 +29,9 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 		foundUser.experience.push(thisExp);
 		await foundUser.save();
 		await fs.unlink(filePath, (err) => {
-			if(err) next(err); // 5cc31a52f4ec76a111d5d3fc
+			if(err) next(err);
 		})
-		console.log(foundUser + "=========");
-
-
-		/// user.push this exp
-
-		// user.save
-
+		// console.log(foundUser + "=========");
 		res.redirect('/experiences')
 	} catch(err){
 		next(err);
@@ -59,16 +55,6 @@ router.get('/', async(req,res,next)=>{
 
 
 // SERVE IMAGE ROUTE
-// router.get('/:id/photo', async (req,res, next) => {
-// 	try{
-// 		const foundExperience = await Experience.findById(req.params.id);
-// 		res.contentType(experience.img.contentType)
-// 		res.send(user.img.data)
-// 	} catch (err){
-// 		next(err);
-// 	}
-// } )
-
 router.get('/:id/photo', (req,res, next) => {
 	Experience.findById(req.params.id, (err, foundExperience) => {
 		if (err){
@@ -85,14 +71,6 @@ router.get('/:id/photo', (req,res, next) => {
 //SHOW
 router.get('/:id', async(req, res, next)=>{
 	try {
-		// const foundUser = await User.findOne({'experience': req.params.id})
-		// 	.populate({path: 'experience', match: {_id: req.params.id}})
-		// 	.exec(res.render('experiences/show.ejs', {
-		// 		user: foundUser,
-		// 		experience: foundUser.experiences[0]
-		// 	}))
-
-
 		const foundUser = await User.findById(req.session.userDbId)
 			.populate({path: 'experience', match: {_id: req.params.id}})
 		console.log(foundUser);
@@ -102,15 +80,6 @@ router.get('/:id', async(req, res, next)=>{
 			message: 'you did it',
 			experience: foundUser.experience[0]
 		})
-			// res.render('experiences/show.ejs', {
-			// 	user: foundUser,
-			// 	experience: foundUser.experiences[0]
-			// })
-			
-		// const foundExperience = await Experience.findById(req.params.id)
-		// res.render('experiences/show.ejs', {
-		// 	experience: foundExperience
-		// 	})
 	} catch(err){
 		next(err);
 	}
