@@ -22,7 +22,7 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 		thisExp.body = req.body.body
 		console.log(thisExp.body + "<==============");
 		thisExp.date = req.body.date
-		console.log(thisExp + "============");
+		  console.log(thisExp + "============");
 		thisExp.img.data = fs.readFileSync(filePath)
 		
 		await thisExp.save();

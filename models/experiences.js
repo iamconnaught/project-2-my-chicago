@@ -11,7 +11,6 @@ const expSchema = mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	body: String
 });
 
 const Experience = mongoose.model('Experience', expSchema)
