@@ -20,8 +20,9 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 		const thisExp = new Experience(req.body)
 		thisExp.title = req.body.title
 		thisExp.body = req.body.body
-		thisExp.date = req.body.toDateString()
-		// console.log(thisExp + "============");
+		console.log(thisExp.body + "<==============");
+		thisExp.date = req.body.date
+		console.log(thisExp + "============");
 		thisExp.img.data = fs.readFileSync(filePath)
 		
 		await thisExp.save();
@@ -77,7 +78,7 @@ router.get('/:id', async(req, res, next)=>{
 		// res.contentType(experience.img.contentType)
 		res.render('experiences/show.ejs',{
 			user: foundUser,
-			message: 'you did it',
+			//message: 'you did it',
 			experience: foundUser.experience[0]
 		})
 	} catch(err){

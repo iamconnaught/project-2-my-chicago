@@ -10,7 +10,8 @@ const expSchema = mongoose.Schema({
 	date: {
 		type: Date,
 		default: Date.now
-	}
+	},
+	body: String
 });
 
 const Experience = mongoose.model('Experience', expSchema)
