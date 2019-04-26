@@ -29,7 +29,7 @@ router.post('/register', async (req,res) => {
 		req.session.userDbId = createdUser._id;
 		console.log(createdUser);
 
-		res.redirect('/users/:id')
+		res.redirect('/users/' + createdUser._id)
 	} catch (err){
 		res.send(err)
 	}
@@ -44,7 +44,7 @@ router.post('/login', async (req,res) => {
 				req.session.logged = true;
 				req.session.userDbId = foundUser._id;
 				console.log(req.session, ' logged in!');
-				res.redirect('/users/:id')
+				res.redirect('/users/' + foundUser._id)
 			}else{
 				req.session.message = "Username or Password is incorrect";
 				res.redirect('/auth/login');

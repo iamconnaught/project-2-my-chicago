@@ -1,7 +1,11 @@
 <%- include ../partials/header.ejs %>
 
 <h1><%=user.username%></h1>
-
+	<ul>
+		<% for(let i = 0; i<user.experience.length; i++){%>
+			<li><a href="/experiences/<%=user.experience[i]._id%>"><%=user.experience[i].title%></a></li>
+		<%}%>
+	</ul>
 <a href="/experiences/new">Create Experience</a>
 
 <%- include ../partials/footer.ejs %>
