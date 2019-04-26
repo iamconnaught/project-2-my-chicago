@@ -1,6 +1,11 @@
 <%- include ../partials/header.ejs %>
 
 <h1>User Index Page</h1>
+<ul>
+	<%for(let i =0; i < users.length; i++){%>
+		<li><a href="/users/<%=users[i]._id%>"><%=users[i].username%></a></li>
 
+	<%}%>
+</ul>
 
 <%- include ../partials/footer.ejs %>

@@ -26,7 +26,7 @@ router.post('/register', async (req,res) => {
 	try {
 		const createdUser = await User.create(userDbEntry);	
 		req.session.logged = true;
-		req.session.usersDbId = createdUser._id;
+		req.session.userDbId = createdUser._id;
 		console.log(createdUser);
 
 		res.redirect('/users/:id')
