@@ -26,9 +26,9 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 		const foundUser = await User.findById(req.session.userDbId)
 		foundUser.experience.push(thisExp);
 		await foundUser.save();
-		// await fs.unlink(thisExp, (err) => {
-		// 	if(err) throw err;
-		// })
+		await fs.unlink(filePath, (err) => {
+			if(err) next(err); // 5cc31a52f4ec76a111d5d3fc
+		})
 		console.log(foundUser + "=========");
 
 
@@ -57,7 +57,15 @@ router.get('/', async(req,res,next)=>{
 	
 });
 
-router.get('/:id/photo', )
+router.get('/:id/photo', async (req,res, next) => {
+	try{
+		const foundExperience = await Experience.findById(req.params.id);
+		res.contentType(experience.img.contentType)
+		res.send(user.img.data)
+	} catch (err){
+		next(err);
+	}
+} )
 
 
 //SHOW
