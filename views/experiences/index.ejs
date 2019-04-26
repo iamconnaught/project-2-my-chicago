@@ -7,8 +7,8 @@
 	<h1>All experiences</h1>
 	<ul>
 		<%for(let i =0; i < experiences.length; i++) {%>
-			<li><%=experiences[i].title%>
-				<%=experiences[i]._id%>
+			<li><%=experiences[i].title%><br>
+				<a href="/experiences/<%=experiences[i]._id%>"><%=experiences[i]._id%></a>
 			</li>
 		<%}%>
 

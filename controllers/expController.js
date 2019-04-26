@@ -57,15 +57,29 @@ router.get('/', async(req,res,next)=>{
 	
 });
 
-router.get('/:id/photo', async (req,res, next) => {
-	try{
-		const foundExperience = await Experience.findById(req.params.id);
-		res.contentType(experience.img.contentType)
-		res.send(user.img.data)
-	} catch (err){
-		next(err);
-	}
-} )
+
+// SERVE IMAGE ROUTE
+// router.get('/:id/photo', async (req,res, next) => {
+// 	try{
+// 		const foundExperience = await Experience.findById(req.params.id);
+// 		res.contentType(experience.img.contentType)
+// 		res.send(user.img.data)
+// 	} catch (err){
+// 		next(err);
+// 	}
+// } )
+
+router.get('/:id/photo', (req,res, next) => {
+	Experience.findById(req.params.id, (err, foundExperience) => {
+		if (err){
+			next(err);
+		} else {
+			res.set('Content-Type', foundExperience.img.contentType)
+			res.send(foundExperience.img.data)
+		}
+	})
+	
+})
 
 
 //SHOW
@@ -86,7 +100,7 @@ router.get('/:id', async(req, res, next)=>{
 		res.render('experiences/show.ejs',{
 			user: foundUser,
 			message: 'you did it',
-			experience: foundUser.experience
+			experience: foundUser.experience[0]
 		})
 			// res.render('experiences/show.ejs', {
 			// 	user: foundUser,
