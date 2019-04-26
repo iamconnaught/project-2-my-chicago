@@ -69,17 +69,24 @@ router.get('/:id/photo', (req,res, next) => {
 })
 
 
-//SHOW
+//Experience SHOW
 router.get('/:id', async(req, res, next)=>{
 	try {
-		const foundUser = await User.findById(req.session.userDbId)
-			.populate({path: 'experience', match: {_id: req.params.id}})
+		// const foundUser = await User.findById(req.session.userDbId)
+		// 	.populate({path: 'experience', match: {_id: req.params.id}})
+		// console.log(foundUser);
+		const foundUser = await User.find({}).populate('experience').findOne({
+			'experience._id': req.params.id
+		})
+		console.log("\ndid it actually work?");
 		console.log(foundUser);
+		const exp = await Experience.findById(req.params.id)
 		// res.contentType(experience.img.contentType)
 		res.render('experiences/show.ejs',{
 			user: foundUser,
 			//message: 'you did it',
-			experience: foundUser.experience[0]
+			// experience: foundUser.experience[0]
+			experience: exp
 		})
 	} catch(err){
 		next(err);

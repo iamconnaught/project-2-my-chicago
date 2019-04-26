@@ -6,7 +6,9 @@ const Experience = require('../models/experiences')
 
 router.get('/', async (req,res) => {
 	try {
-		const foundUsers = await User.find({});
+		const foundUsers = await User.find({}); 
+		console.log("\nfoundUsers in the user indx route");
+		console.log(foundUsers);
 		res.render('users/index.ejs', {
 			users:foundUsers
 		})	
@@ -15,10 +17,12 @@ router.get('/', async (req,res) => {
 	}
 })
 
+// show
 router.get('/:id', async (req,res) => {
 	try {
-		const foundUser = await User.findById(req.session.userDbId).populate('experience')
+		const foundUser = await User.findById(req.params.id).populate('experience')
 
+		console.log("\nhere is found user (based on session) in user show route");
 		console.log(foundUser);
 
 		res.render('users/show.ejs', {
@@ -30,8 +34,18 @@ router.get('/:id', async (req,res) => {
 	}
 })
 
-
-
+//serve image route
+router.get('/:id/photo', (req,res, next) => {
+	Experience.findById(req.params.id, (err, foundExperience) => {
+		if (err){
+			next(err);
+		} else {
+			res.set('Content-Type', foundExperience.img.contentType)
+			res.send(foundExperience.img.data)
+		}
+	})
+	
+})
 
 
 

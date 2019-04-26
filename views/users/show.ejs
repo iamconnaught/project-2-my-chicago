@@ -4,6 +4,12 @@
 	<ul>
 		<% for(let i = 0; i<user.experience.length; i++){%>
 			<li><a href="/experiences/<%=user.experience[i]._id%>"><%=user.experience[i].title%></a></li>
+			<li>
+				<a href="/experiences/<%=user.experience[i]._id%>">
+					<img src="/experiences/<%=user.experience[i]._id%>/photo" height="100px">
+				</a>
+			</li>
+
 		<%}%>
 	</ul>
 <a href="/experiences/new">Create Experience</a>
