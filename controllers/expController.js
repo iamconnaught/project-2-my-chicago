@@ -88,14 +88,37 @@ router.get('/:id', async(req, res, next)=>{
 
 
 //EDIT
-
+router.get('/:id/edit', async (req,res, next) => {
+	try {
+		const foundExperience = await Experience.findById(req.params.id, req.body, {new: true})
+		res.render('experiences/edit.ejs', {
+			experience: foundExperience
+		})
+	} catch (err){
+		next(err)
+	}
+})
 
 
 //UPDATE
+// router.put('/:id', async (req,res, next) => {
+// 	try {
+// 		const updatedExperience = await 
+// 	} catch (err){
+// 		next(err)
+// 	}
+// })
 
 
 //DELETE
-
+router.delete('/:id', async (req,res, next) => {
+	try {
+		const deletedExperience = await Experience.findByIdAndRemove(req.params.id)
+		res.redirect('/experiences')
+	} catch (err){
+		next(err)
+	}
+})
 
 
 

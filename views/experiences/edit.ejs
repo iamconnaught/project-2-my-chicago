@@ -1,1 +1,14 @@
 <%- include ../partials/header.ejs %>
+
+<form id ="new-eperience" action="/experiences" method="post" enctype="multipart/form-data">
+	Title: <input type="text" name="title" value="<%=experience.title%>"><br>
+	<textarea name="body" form="new-eperience"><%=experience.body%></textarea><br>
+	<button>Edit my experience</button>
+</form>
+
+<form action="/experiences/<%=experience._id%>?_method=DELETE" method="post">
+	<button>Delete Experience</button>
+	
+</form>
+
+<%- include ../partials/footer.ejs %>
