@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Experience = require('../models/experiences')
-const User = require('../models/users')
+const Experience = require('../models/experiences');
+const User = require('../models/users');
 const multer = require('multer');
 const fs = require('fs');
+// const fixOrientation = require('fix-orientation');
+// const jimp = require('jimp')
+const sharp = require('sharp')
 const upload = multer({ dest: 'uploads/'})
 
 
@@ -56,20 +59,37 @@ router.get('/', async(req,res,next)=>{
 
 
 // SERVE IMAGE ROUTE
-router.get('/:id/photo', (req,res, next) => {
-	Experience.findById(req.params.id, (err, foundExperience) => {
-		if (err){
-			next(err);
-		} else {
-			res.set('Content-Type', foundExperience.img.contentType)
-			res.send(foundExperience.img.data)
-		}
-	})
+router.get('/:id/photo', async (req,res, next) => {
+	try {
+		const foundExperience = await Experience.findById(req.params.id);
+		console.log("\nfoundExperience.img");
+		console.log(foundExperience.img);
+		console.log("\nimage");
+		console.log(foundExperience.img.data);
+		// res.set('Content-Type', foundExperience.img.contentType)
+		// res.send(foundExperience.img.data)
+		res.set('Content-Type', foundExperience.img.contentType)
+		const image = await sharp(foundExperience.img.data).rotate().toBuffer();
+		res.send(image);
+	} catch (err) {
+		next(err)
+	}
+	// Experience.findById(req.params.id, (err, foundExperience) => {
+	// 	if (err){
+	// 		next(err);
+	// 	} else {
+	// 		res.set('Content-Type', foundExperience.img.contentType)
+	// 		const image = await jimp.read(foundExperience.img.data)
+	// 		image.rotate(90);
+	// 		res.send(image)
+	// 	}
+	// })
 	
 })
 
 
 //Experience SHOW
+
 router.get('/:id', async(req, res, next)=>{
 	try {
 		// const foundUser = await User.findById(req.session.userDbId)
