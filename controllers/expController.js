@@ -25,9 +25,9 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 		const thisExp = new Experience(req.body)
 		thisExp.title = req.body.title
 		thisExp.body = req.body.body
-		console.log(thisExp.body + "<==============");
+		// console.log(thisExp.body + "<==============");
 		thisExp.date = req.body.date
-		  console.log(thisExp + "============");
+		  // console.log(thisExp + "============");
 		thisExp.img.data = fs.readFileSync(filePath)
 		
 		await thisExp.save();
@@ -49,10 +49,10 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 router.get('/:id/photo', async (req,res, next) => {
 	try {
 		const foundExperience = await Experience.findById(req.params.id);
-		console.log("\nfoundExperience.img");
-		console.log(foundExperience.img);
-		console.log("\nimage");
-		console.log(foundExperience.img.data);
+		// console.log("\nfoundExperience.img");
+		// console.log(foundExperience.img);
+		// console.log("\nimage");
+		// console.log(foundExperience.img.data);
 		// res.set('Content-Type', foundExperience.img.contentType)
 		// res.send(foundExperience.img.data)
 		res.set('Content-Type', foundExperience.img.contentType)
@@ -100,8 +100,8 @@ router.get('/:id', async(req, res, next)=>{
 		const foundUser = await User.find({}).populate('experience').findOne({
 			'experience._id': req.params.id
 		})
-		console.log("\ndid it actually work?");
-		console.log(foundUser);
+		// console.log("\ndid it actually work?");
+		// console.log(foundUser);
 		const exp = await Experience.findById(req.params.id)
 		// res.contentType(experience.img.contentType)
 		res.render('experiences/show.ejs',{
@@ -123,8 +123,11 @@ router.get('/:id/edit', async (req,res, next) => {
 		const foundExperience = await Experience.findById(req.params.id, req.body, {new: true})
 		res.render('experiences/edit.ejs', {
 			experience: foundExperience,
-			userProfile: req.session.userDbId//variable to inject on navigation to profile.
+			userProfile: req.session.userDbId,
+			//variable to inject on navigation to profile.
 		})
+		
+
 	} catch (err){
 		next(err)
 	}

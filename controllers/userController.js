@@ -7,8 +7,8 @@ const Experience = require('../models/experiences')
 router.get('/', async (req,res) => {
 	try {
 		const foundUsers = await User.find({}); 
-		console.log("\nfoundUsers in the user indx route");
-		console.log(foundUsers);
+		// console.log("\nfoundUsers in the user indx route");
+		// console.log(foundUsers);
 		res.render('users/index.ejs', {
 			users:foundUsers,
 			userProfile: req.session.userDbId//variable to inject on navigation to profile.
@@ -23,8 +23,8 @@ router.get('/:id', async (req,res) => {
 	try {
 		const foundUser = await User.findById(req.params.id).populate('experience')
 
-		console.log("\nhere is found user (based on session) in user show route");
-		console.log(foundUser);
+		// console.log("\nhere is found user (based on session) in user show route");
+		// console.log(foundUser);
 
 		res.render('users/show.ejs', {
 			user: foundUser,
