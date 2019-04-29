@@ -60,7 +60,7 @@ router.get('/', async(req,res,next)=>{
 		const foundExperiences =  await Experience.find({});
 	res.render('experiences/index.ejs',{
 		experiences: foundExperiences,
-		userProfile: req.session.userDbId
+		userProfile: req.session.userDbId//variable to inject on navigation to profile.
 		})
 	} catch(err){
 		next(err);
@@ -99,7 +99,8 @@ router.get('/:id/edit', async (req,res, next) => {
 	try {
 		const foundExperience = await Experience.findById(req.params.id, req.body, {new: true})
 		res.render('experiences/edit.ejs', {
-			experience: foundExperience
+			experience: foundExperience,
+			userProfile: req.session.userDbId//variable to inject on navigation to profile.
 		})
 	} catch (err){
 		next(err)
