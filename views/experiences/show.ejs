@@ -1,7 +1,18 @@
 <%- include ../partials/header.ejs %>
+<div class="navigation">
+		<nav>
+			<a href="/users/:id">Profile</a>
+			<!-- user show page -->
+			<a href="/experiences">Experiences</a>
+			<!-- experiences index-->
+			<a href="/users">Users</a>
+			<!-- users index -->
+			<a href="/auth/logout">Log Out</a>
+		</nav>
+	</div>
 
 <h1><%=experience.title%></h1>
-<img src="/experiences/<%=experience._id%>/photo" height="100px"><br>
+<img src="/experiences/<%=experience._id%>/photo" height="400px"><br>
 <%=experience.date.toDateString()%><br>
 <p><%=experience.body%><p>
 

@@ -1,10 +1,25 @@
 <%- include ../partials/header.ejs %>
+	<div class="navigation">
+		<nav>
+			<a href="/users/<%=userProfile%>">Profile</a>
+			<!-- user show page -->
+			<a href="/experiences">Experiences</a>
+			<!-- experiences index-->
+			<a href="/users">Users</a>
+			<!-- users index -->
+			<a href="/auth/logout">Log Out</a>
+		</nav>
+	</div>
 
 	<h1>All experiences</h1>
 	<ul>
 		<%for(let i =0; i < experiences.length; i++) {%>
-			<li><%=experiences[i].title%><br>
-				<a href="/experiences/<%=experiences[i]._id%>"><%=experiences[i]._id%></a>
+			<li><a href="/experiences/<%=experiences[i]._id%>">
+				<%=experiences[i].title%>
+				</a><br>
+				<a href="/experiences/<%=experiences[i]._id%>">
+					<img src="/experiences/<%=experiences[i]._id%>/photo" height="100px">
+				</a>
 			</li>
 		<%}%>
 

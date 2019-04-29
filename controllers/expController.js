@@ -43,21 +43,6 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 
 });
 
-
-//INDEX
-router.get('/', async(req,res,next)=>{
-	try {
-		const foundExperiences =  await Experience.find({});
-	res.render('experiences/index.ejs',{
-		experiences: foundExperiences
-		})
-	} catch(err){
-		next(err);
-	}
-	
-});
-
-
 // SERVE IMAGE ROUTE
 router.get('/:id/photo', async (req,res, next) => {
 	try {
@@ -86,6 +71,21 @@ router.get('/:id/photo', async (req,res, next) => {
 	// })
 	
 })
+
+//INDEX
+router.get('/', async(req,res,next)=>{
+	try {
+		const foundUsers = await User.find({});
+		const foundExperiences =  await Experience.find({});
+	res.render('experiences/index.ejs',{
+		experiences: foundExperiences,
+		userProfile: req.session.userDbId//variable to inject on navigation to profile.
+		})
+	} catch(err){
+		next(err);
+	}
+	
+});
 
 
 //Experience SHOW
@@ -119,7 +119,8 @@ router.get('/:id/edit', async (req,res, next) => {
 	try {
 		const foundExperience = await Experience.findById(req.params.id, req.body, {new: true})
 		res.render('experiences/edit.ejs', {
-			experience: foundExperience
+			experience: foundExperience,
+			userProfile: req.session.userDbId//variable to inject on navigation to profile.
 		})
 	} catch (err){
 		next(err)

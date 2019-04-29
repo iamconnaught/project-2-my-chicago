@@ -1,4 +1,15 @@
 <%- include ../partials/header.ejs %>
+<div class="navigation">
+		<nav>
+			<a href="/users/<%=userProfile%>">Profile</a>
+			<!-- user show page -->
+			<a href="/experiences">Experiences</a>
+			<!-- experiences index-->
+			<a href="/users">Users</a>
+			<!-- users index -->
+			<a href="/auth/logout">Log Out</a>
+		</nav>
+	</div>
 
 <form id ="new-eperience" action="/experiences/<%=experience._id%>?_method=PUT" method="post">
 	Title: <input type="text" name="title" value="<%=experience.title%>"><br>
