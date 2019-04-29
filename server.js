@@ -6,6 +6,7 @@ const session 		 = require('express-session')
 const bcrypt 		 = require('bcryptjs')
 require('./db/db')
 
+//MIDDLEWARE
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 app.use(session({
@@ -15,13 +16,17 @@ app.use(session({
 }))
 app.use(express.static('public'));
 
+
+//CONTROLLERS
+const authController = require('./controllers/authController');
+app.use('/auth', authController);
 const expController = require('./controllers/expController');
 app.use('/experiences', expController);
 const userController = require('./controllers/userController');
 app.use('/users', userController)
-const authController = require('./controllers/authController');
-app.use('/auth', authController);
 
+
+//HOMEPAGE
 app.get('/', async (req,res) => {
 	try {
 		res.render('welcome.ejs')
