@@ -13,7 +13,7 @@
 
 	<h1>Add a new experience</h1>
 		<form id ="new-eperience" action="/experiences" method="post" enctype="multipart/form-data">
-			Title: <input type="text" name="title" placeholder="Enter title"><br>
+			Title: <input type="text" name="title" maxlength="22" placeholder="Enter title"><br>
 			Image <input type="file" name="img"><br>
 			<textarea name="body" placeholder="Tell us about your experience" form="new-eperience"></textarea><br>
 			<button>Add to my experiences</button>
