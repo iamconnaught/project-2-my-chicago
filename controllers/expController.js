@@ -12,7 +12,9 @@ const upload = multer({ dest: 'uploads/'})
 
 //NEW
 router.get('/new', (req, res)=> {
-	res.render('experiences/new.ejs');
+	res.render('experiences/new.ejs', {
+		userProfile: req.session.userDbId//variable to inject on navigation to profile.
+	});
 });
 
 //CREATE IMAGE UPLOAD 
@@ -106,7 +108,8 @@ router.get('/:id', async(req, res, next)=>{
 			user: foundUser,
 			//message: 'you did it',
 			// experience: foundUser.experience[0]
-			experience: exp
+			experience: exp,
+			userProfile: req.session.userDbId//variable to inject on navigation to profile.
 		})
 	} catch(err){
 		next(err);
