@@ -73,6 +73,7 @@ li {
 	margin: 50px;
 }
 
+
 .userExpIndexBox {
 	background: #E6E7F3;
 	display:flex;
@@ -90,4 +91,10 @@ li {
 }
 
 
+
+
+#map {
+	height: 400px;
+	width: 100%;
+}
 

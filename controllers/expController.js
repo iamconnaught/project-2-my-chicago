@@ -32,6 +32,20 @@ router.get('/new', (req, res)=> {
 	});
 });
 
+// MAP ROUTE
+
+router.get('/map', async (req,res, next) => {
+	try {
+		res.render('experiences/map.ejs', {
+			userProfile: req.session.userDbId, //variable to inject on navigation to profile.
+			apiKey: process.env.API_KEY
+		})
+		
+	} catch (err){
+		res.send(err)
+	}
+})
+
 //CREATE IMAGE UPLOAD 
 router.post('/', upload.single('img'), async(req, res, next)=>{
 	// console.log("uploading....===============");
@@ -50,6 +64,12 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 		thisExp.date = req.body.date
 		  // console.log(thisExp + "============");
 		thisExp.img.data = fs.readFileSync(filePath)
+		// thisExp.lat = navigator.geolocation.getCurrentPosition((lat) => {
+		// 	console.log(thisExp.lat);
+		// })
+		// thisExp.lng = navigator.geolocation.getCurrentPosition((lng) => {
+		// 	console.log(thisExp.lng);
+		// })
 		
 		await thisExp.save();
 		const foundUser = await User.findById(req.session.userDbId)

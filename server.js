@@ -1,16 +1,19 @@
+require("dotenv").config();
+
 const express        = require('express');
 const app            = express();
 const bodyParser     = require('body-parser');
 const methodOverride = require('method-override');
 const session 		 = require('express-session')
 const bcrypt 		 = require('bcryptjs')
+
 require('./db/db')
 
 //MIDDLEWARE
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 app.use(session({
-	secret: 'fjkhjdsahlkjfhlkahLKJhfdjklHLJFHLJKFhflkjHDsflkjh',
+	secret: process.env.SESSION_SECRET,
 	resave: false,
 	saveUninitialized: false
 }))
@@ -43,7 +46,6 @@ const userController = require('./controllers/userController');
 app.use('/users', userController)
 const expController = require('./controllers/expController');
 app.use('/experiences', expController);
-
 
 
 
