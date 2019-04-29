@@ -40,21 +40,6 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 
 });
 
-
-//INDEX
-router.get('/', async(req,res,next)=>{
-	try {
-		const foundExperiences =  await Experience.find({});
-	res.render('experiences/index.ejs',{
-		experiences: foundExperiences
-		})
-	} catch(err){
-		next(err);
-	}
-	
-});
-
-
 // SERVE IMAGE ROUTE
 router.get('/:id/photo', (req,res, next) => {
 	Experience.findById(req.params.id, (err, foundExperience) => {
@@ -68,8 +53,23 @@ router.get('/:id/photo', (req,res, next) => {
 	
 })
 
+//INDEX
+router.get('/', async(req,res,next)=>{
+	try {
+		const foundUsers = await User.find({});
+		const foundExperiences =  await Experience.find({});
+	res.render('experiences/index.ejs',{
+		experiences: foundExperiences,
+		userProfile: req.session.userDbId
+		})
+	} catch(err){
+		next(err);
+	}
+	
+});
 
-//Experience SHOW
+
+//SHOW
 router.get('/:id', async(req, res, next)=>{
 	try {
 		// const foundUser = await User.findById(req.session.userDbId)

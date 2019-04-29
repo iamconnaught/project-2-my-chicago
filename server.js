@@ -31,40 +31,6 @@ app.get('/', async (req,res) => {
 	}
 })
 
-// app.get('/mychicago/login', async (req,res) => {
-// 	try {
-// 		res.render('login.ejs')	
-// 	} catch (err){
-// 		res.send(err)
-// 	}
-// })
-
-// app.post('mychicago/register', async (req,res) => {
-// 	const password = req.body.password;
-// 	const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSynce(10))
-
-// 	const userDbEntry = {};
-// 	userDbEntry.username = req.body.username;
-// 	userDbEntry.password = passwordHash;
-
-// 	try {
-// 		const createdUser = await User.create(userDbEntry);	
-// 		req.session.logged = true;
-// 		req.session.usersDbId = createdUser._id;
-// 		console.log(createdUser);
-
-// 		res.redirect('/users/:id')
-// 	} catch (err){
-// 		res.send(err)
-// 	}
-// })
-
-// app.post('/mychicago/login', (req,res) => {
-// 	req.session.username = req.body.username;
-// 	req.session.logged = true;
-// 	res.redirect('/users')
-// 	console.log(req.session);
-// })
 
 
 
