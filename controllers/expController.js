@@ -23,6 +23,9 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 	try {
 		const filePath = './' + req.file.path
 		const thisExp = new Experience(req.body)
+		thisExp.ownerId = req.session.userDbId
+		console.log('thisExp.ownerId');
+		console.log(thisExp.ownerId);
 		thisExp.title = req.body.title
 		thisExp.body = req.body.body
 		// console.log(thisExp.body + "<==============");
@@ -126,7 +129,7 @@ router.get('/:id/edit', async (req,res, next) => {
 			userProfile: req.session.userDbId,
 			//variable to inject on navigation to profile.
 		})
-		
+
 
 	} catch (err){
 		next(err)
