@@ -1,15 +1,18 @@
+require("dotenv").config();
+
 const express        = require('express');
 const app            = express();
 const bodyParser     = require('body-parser');
 const methodOverride = require('method-override');
 const session 		 = require('express-session')
 const bcrypt 		 = require('bcryptjs')
+
 require('./db/db')
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 app.use(session({
-	secret: 'fjkhjdsahlkjfhlkahLKJhfdjklHLJFHLJKFhflkjHDsflkjh',
+	secret: process.env.SESSION_SECRET,
 	resave: false,
 	saveUninitialized: false
 }))
@@ -30,7 +33,6 @@ app.get('/', async (req,res) => {
 		res.send(err)
 	}
 })
-
 
 
 

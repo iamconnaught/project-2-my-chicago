@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const expSchema = mongoose.Schema({
+const expSchema = new mongoose.Schema({
 	ownerId: String,
 	title: String,
 	img: {

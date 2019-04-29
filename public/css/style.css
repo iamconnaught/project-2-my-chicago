@@ -52,3 +52,8 @@ li {
 	text-align: center;
 	margin: 50px;
 }
+
+#map {
+	height: 400px;
+	width: 100%;
+}
