@@ -27,7 +27,8 @@ router.get('/:id', async (req,res) => {
 		console.log(foundUser);
 
 		res.render('users/show.ejs', {
-			user: foundUser
+			user: foundUser,
+			userProfile: req.session.userDbId//variable to inject on navigation to profile.
 		})
 
 	} catch (err){
