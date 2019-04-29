@@ -12,6 +12,8 @@
 	</div>
 
 <h1><%=user.username%></h1>
+<h2>Your Experiences</h2>
+	<div class="userExpIndexBox">
 	<ul>
 		<% for(let i = 0; i<user.experience.length; i++){%>
 			<li><a href="/experiences/<%=user.experience[i]._id%>"><%=user.experience[i].title%></a></li>
@@ -23,6 +25,7 @@
 
 		<%}%>
 	</ul>
+	</div>
 <a href="/experiences/new">Create Experience</a>
 
 <%- include ../partials/footer.ejs %>

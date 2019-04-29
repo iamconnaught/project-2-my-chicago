@@ -2,7 +2,11 @@ body	{
 	font-family: 'Carme', sans-serif; 
 }
 
-h1 {
+h1  {
+	font-family: 'Syncopate', sans-serif;
+}
+
+h2 {
 	font-family: 'Syncopate', sans-serif;
 }
 
@@ -41,6 +45,10 @@ a:link {color:black;}    /* unvisited link */
 a:visited {color:black;} /* visited link */
 a:hover {text-decoration: underline;}   /* mouse over link */
 
+ul{
+	padding: 0;
+}
+
 li {
 	list-style: none;
 	font-size: 16pt;
@@ -53,4 +61,10 @@ li {
 	align-content: center;
 	text-align: center;
 	margin: 50px;
+}
+
+.userExpIndexBox {
+	display:flex;
+	flex-direction: row;
+	align-content: space-between;
 }
