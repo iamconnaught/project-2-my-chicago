@@ -17,14 +17,9 @@ app.use(session({
 app.use(express.static('public'));
 
 
-//CONTROLLERS
+//AUTH CONTROLLER
 const authController = require('./controllers/authController');
 app.use('/auth', authController);
-const expController = require('./controllers/expController');
-app.use('/experiences', expController);
-const userController = require('./controllers/userController');
-app.use('/users', userController)
-
 
 //HOMEPAGE
 app.get('/', async (req,res) => {
@@ -35,6 +30,22 @@ app.get('/', async (req,res) => {
 		res.send(err)
 	}
 })
+
+//auth requirement
+app.use((req,res,next)=>{
+	if(!req.session.logged){
+		res.redirect('/auth/login')
+	}
+})
+
+//CONTROLLERS
+const expController = require('./controllers/expController');
+app.use('/experiences', expController);
+const userController = require('./controllers/userController');
+app.use('/users', userController)
+
+
+
 
 
 
