@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const expSchema = mongoose.Schema({
+	ownerId: String,
 	title: String,
 	img: {
 		data: Buffer,
