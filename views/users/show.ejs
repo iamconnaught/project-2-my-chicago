@@ -12,20 +12,24 @@
 	</div>
 
 <h1><%=user.username%></h1>
-<h2>Your Experiences</h2>
 	<div class="userExpIndexBox">
-	<ul>
-		<% for(let i = 0; i<user.experience.length; i++){%>
-			<li><a href="/experiences/<%=user.experience[i]._id%>"><%=user.experience[i].title%></a></li>
-			<li>
-				<a href="/experiences/<%=user.experience[i]._id%>">
-					<img src="/experiences/<%=user.experience[i]._id%>/photo" height="100px">
-				</a>
-			</li>
-
-		<%}%>
-	</ul>
+		<div class="indexTitle">
+			<h2>Your Experiences</h2>
+		</div>
+		<div class="list">
+			<ul>
+				<% for(let i = 0; i<user.experience.length; i++){%>
+					<li>
+						<a href="/experiences/<%=user.experience[i]._id%>"><%=user.experience[i].title%>		
+						</a>
+						<a href="/experiences/<%=user.experience[i]._id%>">
+							<img src="/experiences/<%=user.experience[i]._id%>/photo" height="100px">
+						</a>
+					</li>
+				<%}%>
+			</ul>
+		</div>
 	</div>
-<a href="/experiences/new">Create Experience</a>
+<h2><a href="/experiences/new">Create Experience</a></h2>
 
 <%- include ../partials/footer.ejs %>
