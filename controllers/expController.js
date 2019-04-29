@@ -10,8 +10,23 @@ const sharp = require('sharp')
 const upload = multer({ dest: 'uploads/'})
 
 
+//auth requirement
+// router.use((req,res,next)=>{
+// 	try {
+// 		if(!req.session.logged){
+// 			res.redirect('/auth/login');
+// 		}
+// 	} catch(err){
+// 		next(err);
+// 	}
+// })
+
+
 //NEW
 router.get('/new', (req, res)=> {
+	if(!req.session.logged){
+			res.redirect('/auth/login');
+		}
 	res.render('experiences/new.ejs', {
 		userProfile: req.session.userDbId//variable to inject on navigation to profile.
 	});
@@ -21,6 +36,9 @@ router.get('/new', (req, res)=> {
 router.post('/', upload.single('img'), async(req, res, next)=>{
 	// console.log("uploading....===============");
 	try {
+		if(!req.session.logged){
+			res.redirect('/auth/login');
+		}
 		const filePath = './' + req.file.path
 		const thisExp = new Experience(req.body)
 		thisExp.ownerId = req.session.userDbId
@@ -80,6 +98,9 @@ router.get('/:id/photo', async (req,res, next) => {
 //INDEX
 router.get('/', async(req,res,next)=>{
 	try {
+		if(!req.session.logged){
+			res.redirect('/auth/login');
+		}
 		const foundUsers = await User.find({});
 		const foundExperiences =  await Experience.find({});
 	res.render('experiences/index.ejs',{
@@ -93,10 +114,13 @@ router.get('/', async(req,res,next)=>{
 });
 
 
-//Experience SHOW
+//SHOW
 
 router.get('/:id', async(req, res, next)=>{
 	try {
+		if(!req.session.logged){
+			res.redirect('/auth/login');
+		}
 		// const foundUser = await User.findById(req.session.userDbId)
 		// 	.populate({path: 'experience', match: {_id: req.params.id}})
 		// console.log(foundUser);
@@ -123,6 +147,9 @@ router.get('/:id', async(req, res, next)=>{
 //EDIT
 router.get('/:id/edit', async (req,res, next) => {
 	try {
+		if(!req.session.logged){
+			res.redirect('/auth/login');
+		}
 		const foundExperience = await Experience.findById(req.params.id, req.body, {new: true})
 		res.render('experiences/edit.ejs', {
 			experience: foundExperience,
