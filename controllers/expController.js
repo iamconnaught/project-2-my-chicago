@@ -47,7 +47,7 @@ router.get('/map', async (req,res, next) => {
 	}
 })
 
-//CREATE IMAGE UPLOAD 
+//CREATE EXPERIENCE UPLOAD 
 router.post('/', upload.single('img'), async(req, res, next)=>{
 	// console.log("uploading....===============");
 	try {
@@ -73,6 +73,7 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 		// })
 		
 		await thisExp.save();
+		console.log(thisExp.body + ' This is the new experience');
 		const foundUser = await User.findById(req.session.userDbId)
 		foundUser.experience.push(thisExp);
 		await foundUser.save();
