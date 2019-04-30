@@ -1,5 +1,5 @@
 <%- include ./partials/header.ejs %>
-
+	<div class="logRegBox">
 	<h1>Login</h1>
 	<form action="/auth/login" method="POST">
 		<input type="text" name="username" placeholder="username">
@@ -7,7 +7,7 @@
 		<button>Login</button>
 	</form>
 
-	<small><%= message %></small>
+	<small><%=message%></small>
 
 	<h1>Register</h1>
 	<form action="/auth/register" method="POST">
@@ -15,6 +15,6 @@
 		<input type="password" name="password" placeholder="password">
 		<button>Register</button>
 	</form>
-
+</div>
 </body>
 </html>
