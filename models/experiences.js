@@ -15,6 +15,8 @@ const expSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
+	lat: Number,
+	lng: Number
 });
 
 const Experience = mongoose.model('Experience', expSchema)

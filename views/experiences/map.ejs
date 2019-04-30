@@ -22,7 +22,6 @@
           zoom: 10
         });
         infoWindow = new google.maps.InfoWindow;
-        let marker = new google.maps.Marker({position: map, map: map});
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -35,6 +34,7 @@
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
             map.setCenter(pos);
+            let marker = new google.maps.Marker({position: pos, map: map});
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });

@@ -17,6 +17,8 @@
 			Title: <input type="text" name="title" maxlength="22" placeholder="Enter title"><br>
 			Image <input type="file" name="img"><br>
 			<textarea name="body" placeholder="Tell us about your experience" form="new-eperience"></textarea><br>
+			<input id="#lat" type="hidden" name="lat">
+			<input id="#lng" type="hidden" name="lng">
 			<button>Add to my experiences</button>
 
 		</form>
@@ -27,6 +29,8 @@
 				console.log(position.coords.latitude, position.coords.longitude);
 				const longitude = position.coords.longitude;
 				const latitude = position.coords.latitude;
+				$('#lat').val(latitude)
+				$('#lng').val(longitude)
 			})
 		</script>
 </body>
