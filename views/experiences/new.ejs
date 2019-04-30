@@ -13,12 +13,12 @@
 	</div>
 
 	<h1>Add a new experience</h1>
-		<form id ="new-eperience" action="/experiences" method="post" enctype="multipart/form-data">
+		<form id="new-experience" action="/experiences" method="post" enctype="multipart/form-data">
 			Title: <input type="text" name="title" maxlength="22" placeholder="Enter title"><br>
 			Image <input type="file" name="img"><br>
 			<textarea name="body" placeholder="Tell us about your experience" form="new-eperience"></textarea><br>
-			<input id="#lat" type="hidden" name="lat">
-			<input id="#lng" type="hidden" name="lng">
+			<input id="lat" type="hidden" name="lat">
+			<input id="lng" type="hidden" name="lng">
 			<button>Add to my experiences</button>
 
 		</form>
@@ -26,11 +26,15 @@
 			// get current position -- async 
 			// use DOM manipulation to insert that into the form element 
 			navigator.geolocation.getCurrentPosition((position) => {
-				console.log(position.coords.latitude, position.coords.longitude);
 				const longitude = position.coords.longitude;
 				const latitude = position.coords.latitude;
-				$('#lat').val(latitude)
-				$('#lng').val(longitude)
+				console.log("lat, lng");
+				console.log(latitude, longitude);
+				// $('#lat').val(latitude)
+				document.getElementById('lat').value = latitude
+				// $('#lng').val(longitude)
+				document.getElementById('lng').value = longitude
+				console.log(document.getElementById('new-experience'));
 			})
 		</script>
 </body>
