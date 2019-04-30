@@ -144,11 +144,10 @@ router.get('/:id', async(req, res, next)=>{
 		// const foundUser = await User.findById(req.session.userDbId)
 		// 	.populate({path: 'experience', match: {_id: req.params.id}})
 		// console.log(foundUser);
-		const foundUser = await User.find({}).populate('experience').findOne({
-			'experience._id': req.params.id
-		})
+		const foundUser = await Experience.findById(req.params.id).populate('ownerId')
 		// console.log("\ndid it actually work?");
-		// console.log(foundUser);
+		console.log('foundUser');
+		console.log(foundUser);
 		const exp = await Experience.findById(req.params.id)
 		// res.contentType(experience.img.contentType)
 		res.render('experiences/show.ejs',{

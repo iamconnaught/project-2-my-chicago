@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
-
+const user = require('./users')
 const expSchema = new mongoose.Schema({
-	ownerId: String,
+	ownerId: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
+	},
 	title: String,
 	img: {
 		data: Buffer,
