@@ -1,5 +1,10 @@
 body	{
 	font-family: 'Carme', sans-serif; 
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: space-between;
+	margin: 0 auto;
 }
 
 h1  {
@@ -75,6 +80,10 @@ p {
 	padding: 10px;
 }
 
+.logRegbox {
+	padding-left: 20px;
+}
+
 .main {
 	display: flex;
 	flex-direction: column;
@@ -90,7 +99,7 @@ p {
 	flex-direction: column;
 	align-content: space-between;
 	flex-wrap: wrap;
-	width: 95%;
+	width: 97%;
 }
 
 .experiencesList {
@@ -100,7 +109,7 @@ p {
 	justify-content: flex-start;
 	align-content: space-between;
 	border-top-right-radius: 20px;
-	width: 90%;
+	width: 97%;
 }
 
 .usersList {
@@ -111,6 +120,7 @@ p {
 	align-content: space-around;
 	align-items: flex-start;
 	border-top-right-radius: 20px;
+	width: 97%;
 }
 
 
@@ -139,14 +149,50 @@ p {
 }
 
 .showContainer {
+	align-self: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
+	word-break: break-word;
+	width: 50%;
 }
 
-#bodyText {
+.newExpContainer {
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	align-content: space-between;
+	width: 50%;
+}
 
+.newExpContainer form {
+	align-self: center;
+	align-content: space-around;
+	font-size: 16pt;
+}
+
+.editExpContainer {
+	align-self: center;
+	align-content: space-around;
+	font-size: 16pt;
+	text-align: center;
+}
+
+input {
+	border-radius: 10px;
+	font-size: 14pt;
+}
+
+textarea {
+	height: 150px;
+	width: 100%;
+	margin-top: 10px;
+	border-radius: 10px;
+	font-size: 14pt;
 }
 
 #map {
@@ -162,6 +208,9 @@ hr {
 }
 
 footer {
+	position: relative;
+	bottom: 0;
 	text-align: center;
+	width: 100%;
 }
 

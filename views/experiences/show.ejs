@@ -17,7 +17,7 @@
 <h2>By: <%=user.ownerId.username%></h2>
 <p><%=experience.date.toDateString()%></p>
 <p id="bodyText"><%=experience.body%></p>
-
+</div>
 <div id="map">
 </div>
 
@@ -63,6 +63,7 @@
 
 
 	 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=apiKey%>&callback=initMap" type="text/javascript"></script>
+
 
 <a href="/experiences/<%=experience._id%>/edit">Edit/Delete</a>
 </div>

@@ -12,17 +12,18 @@
 			<a href="/auth/logout">Log Out</a>
 		</nav>
 	</div>
+	<div class="editExpContainer">
+		<h2>Update your experience</h2>
+		<form id ="new-eperience" action="/experiences/<%=experience._id%>?_method=PUT" method="post">
+			Title: <input type="text" name="title" value="<%=experience.title%>"><br>
+			<textarea name="body" form="new-eperience"><%=experience.body%></textarea><br>
+			<button>Update my experience</button>
+		</form>
 
-<form id ="new-eperience" action="/experiences/<%=experience._id%>?_method=PUT" method="post">
-	Title: <input type="text" name="title" value="<%=experience.title%>"><br>
-	<textarea name="body" form="new-eperience"><%=experience.body%></textarea><br>
-	<button>Update my experience</button>
-</form>
-
-<form action="/experiences/<%=experience._id%>?_method=DELETE" method="post">
-	<button>Delete Experience</button>
-	
-</form>
+		<form action="/experiences/<%=experience._id%>?_method=DELETE" method="post">
+		<button>Delete Experience</button>
+		</form>
+	</div>
 
 
 <%- include ../partials/footer.ejs %>
