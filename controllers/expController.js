@@ -28,7 +28,8 @@ router.get('/new', (req, res)=> {
 			res.redirect('/auth/login');
 		}
 	res.render('experiences/new.ejs', {
-		userProfile: req.session.userDbId//variable to inject on navigation to profile.
+		userProfile: req.session.userDbId,//variable to inject on navigation to profile.
+		apiKey: process.env.API_KEY
 	});
 });
 
@@ -155,6 +156,7 @@ router.get('/:id', async(req, res, next)=>{
 			//message: 'you did it',
 			// experience: foundUser.experience[0]
 			experience: exp,
+			apiKey: process.env.API_KEY,
 			userProfile: req.session.userDbId//variable to inject on navigation to profile.
 		})
 	} catch(err){

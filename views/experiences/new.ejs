@@ -22,20 +22,65 @@
 			<button>Add to my experiences</button>
 
 		</form>
-		<script>
-			// get current position -- async 
-			// use DOM manipulation to insert that into the form element 
-			navigator.geolocation.getCurrentPosition((position) => {
-				const longitude = position.coords.longitude;
-				const latitude = position.coords.latitude;
-				console.log("lat, lng");
-				console.log(latitude, longitude);
-				// $('#lat').val(latitude)
-				document.getElementById('lat').value = latitude
-				// $('#lng').val(longitude)
-				document.getElementById('lng').value = longitude
-				console.log(document.getElementById('new-experience'));
-			})
-		</script>
+	<div id="map">
+	</div>
+
+	<script>
+		let map, infoWindow;
+      	function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 41.8781, lng: -87.6231},
+          zoom: 18
+        });
+        infoWindow = new google.maps.InfoWindow;
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            let pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('You are here.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+            let marker = new google.maps.Marker({position: pos, map: map});
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+		
+    </script>
+
+
+	 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=apiKey%>&callback=initMap" type="text/javascript"></script>
+	<script>
+		// get current position -- async 
+		// use DOM manipulation to insert that into the form element 
+		navigator.geolocation.getCurrentPosition((position) => {
+			const longitude = position.coords.longitude;
+			const latitude = position.coords.latitude;
+			console.log("lat, lng");
+			console.log(latitude, longitude);
+			// $('#lat').val(latitude)
+			document.getElementById('lat').value = latitude
+			// $('#lng').val(longitude)
+			document.getElementById('lng').value = longitude
+			console.log(document.getElementById('new-experience'));
+		})
+	</script>
 </body>
 </html>
