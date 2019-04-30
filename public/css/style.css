@@ -84,15 +84,20 @@ p {
 	padding-left: 20px;
 }
 
-.main {
+.home {
+	align-self: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-content: center;
 	text-align: center;
-	margin: 50px;
+	word-break: break-word;
+	width: 50%;
 }
 
+.home a {
+	color: blue;
+} 
 
 .userExpIndexBox {
 	display:flex;
