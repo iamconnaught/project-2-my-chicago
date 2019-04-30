@@ -6,7 +6,6 @@ const bodyParser     = require('body-parser');
 const methodOverride = require('method-override');
 const session 		 = require('express-session')
 const bcrypt 		 = require('bcryptjs')
-
 require('./db/db')
 
 //MIDDLEWARE
