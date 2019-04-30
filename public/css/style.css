@@ -53,6 +53,8 @@ ul {
 	padding: 0;
 	display: flex;
 	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
 	padding: 5px;
 }
 
@@ -65,6 +67,12 @@ li {
 	font-size: 16pt;
 	height: 200px;
 	width: 160px;
+	overflow: hidden;
+	margin-left: 10px;
+}
+
+p {
+	padding: 10px;
 }
 
 .main {
@@ -81,6 +89,8 @@ li {
 	display:flex;
 	flex-direction: column;
 	align-content: space-between;
+	flex-wrap: wrap;
+	width: 95%;
 }
 
 .experiencesList {
@@ -90,6 +100,7 @@ li {
 	justify-content: flex-start;
 	align-content: space-between;
 	border-top-right-radius: 20px;
+	width: 90%;
 }
 
 .usersList {
@@ -125,6 +136,17 @@ li {
 .usersUl {
 	display: flex;
 	flex-direction: column;
+}
+
+.showContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#bodyText {
+
 }
 
 #map {

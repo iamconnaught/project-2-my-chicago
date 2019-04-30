@@ -11,13 +11,13 @@
 			<a href="/auth/logout">Log Out</a>
 		</nav>
 	</div>
-
+<div class="showContainer">
 <h1><%=experience.title%></h1>
 <img src="/experiences/<%=experience._id%>/photo" height="400px"><br>
-<h2><%=user.ownerId.username%></h2>
+<h2>By: <%=user.ownerId.username%></h2>
 <p><%=experience.date.toDateString()%></p>
-<p><%=experience.body%><p>
+<p id="bodyText"><%=experience.body%><p>
 
 <a href="/experiences/<%=experience._id%>/edit">Edit/Delete</a>
-
+</div>
 <%- include ../partials/footer.ejs %>
