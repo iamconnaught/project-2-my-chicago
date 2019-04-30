@@ -1,5 +1,5 @@
 <%- include ../partials/header.ejs %>
-<div class="navigation">
+	<div class="navigation">
 		<nav>
 			<a href="/users/<%=userProfile%>">Profile</a>
 			<!-- user show page -->
@@ -7,20 +7,25 @@
 			<!-- experiences index-->
 			<a href="/users">Users</a>
 			<!-- users index -->
+			<a href="/experiences/map">Map</a>
 			<a href="/auth/logout">Log Out</a>
 		</nav>
 	</div>
+	<div class="userExpIndexBox">
+		<div class="indexTitle">
+			<h2>All Users</h2>
+		</div>
+		<div class="usersList">
+		<ul class="usersUl">
+			<%for(let i =0; i < users.length; i++){%>
+				<li class="usersLi">
+					<a href="/users/<%=users[i]._id%>">
+						<%=users[i].username%>
+					</a>
+				</li>
 
-<h1>User Index Page</h1>
-<ul>
-	<%for(let i =0; i < users.length; i++){%>
-		<li>
-			<a href="/users/<%=users[i]._id%>">
-				<%=users[i].username%>
-			</a>
-		</li>
-
-	<%}%>
-</ul>
-
+			<%}%>
+		</ul>
+		</div>
+	</div>
 <%- include ../partials/footer.ejs %>

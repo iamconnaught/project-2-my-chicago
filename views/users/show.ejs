@@ -7,6 +7,7 @@
 			<!-- experiences index-->
 			<a href="/users">Users</a>
 			<!-- users index -->
+			<a href="/experiences/map">Map</a>
 			<a href="/auth/logout">Log Out</a>
 		</nav>
 	</div>
@@ -16,7 +17,7 @@
 		<div class="indexTitle">
 			<h2>Your Experiences</h2>
 		</div>
-		<div class="list">
+		<div class="experiencesList">
 			<ul>
 				<% for(let i = 0; i<user.experience.length; i++){%>
 					<li>
@@ -30,6 +31,6 @@
 			</ul>
 		</div>
 	</div>
-<h2><a href="/experiences/new">Create Experience</a></h2>
+<h2><a href="/experiences/new">Create a new Experience</a></h2>
 
 <%- include ../partials/footer.ejs %>

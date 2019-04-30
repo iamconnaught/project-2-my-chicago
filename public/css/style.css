@@ -4,10 +4,14 @@ body	{
 
 h1  {
 	font-family: 'Syncopate', sans-serif;
+	text-indent: 10px;
+	margin-top: 20px;
 }
 
 h2 {
 	font-family: 'Syncopate', sans-serif;
+	margin: 20px 0 0 0;
+	padding: 10px;
 }
 
 .header {
@@ -36,7 +40,7 @@ h2 {
 	font-size: 24pt;
 }
 
-a{
+a {
 	text-decoration: none;
 	padding: 5px;
 	font-size: 16pt;
@@ -45,7 +49,7 @@ a:link {color:black;}    /* unvisited link */
 a:visited {color:black;} /* visited link */
 a:hover {text-decoration: underline;}   /* mouse over link */
 
-ul{
+ul {
 	padding: 0;
 	display: flex;
 	flex-direction: row;
@@ -53,7 +57,6 @@ ul{
 }
 
 li {
-	background: salmon;
 	overflow-wrap: break-word;
 	display: flex;
 	flex-direction: column;
@@ -75,26 +78,68 @@ li {
 
 
 .userExpIndexBox {
-	background: #E6E7F3;
 	display:flex;
 	flex-direction: column;
 	align-content: space-between;
 }
 
-.list {
-	background: pink;
+.experiencesList {
+	background: #E6E7F3;
 	display:flex;
 	flex-direction: row;
 	justify-content: flex-start;
 	align-content: space-between;
-	text-indent: 
+	border-top-right-radius: 20px;
+}
+
+.usersList {
+	background: #E6E7F3;
+	display:flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: space-around;
+	align-items: flex-start;
+	border-top-right-radius: 20px;
 }
 
 
+.indexTitle {
+	background-color: #E6E7F3;
+	width:360px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 20px;
+	text-indent: 20px;
+	margin-top: 20px;
+}
 
+.usersLi {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	list-style: none;
+	font-size: 16pt;
+	height: 40px;
+	width: 160px;
+}
+
+.usersUl {
+	display: flex;
+	flex-direction: column;
+}
 
 #map {
+	margin: 30px;
 	height: 400px;
-	width: 100%;
+	width: 95%;
+}
+
+hr { 
+	margin-top: 20px;
+    border-style: inset;
+    border-width: 1px;
+}
+
+footer {
+	text-align: center;
 }
 
