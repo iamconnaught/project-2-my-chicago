@@ -169,7 +169,7 @@ router.get('/:id', async(req, res, next)=>{
 //EDIT
 router.get('/:id/edit', async (req,res, next) => {
 	try {
-		if(!req.session.logged){
+		if(!req.session.logged) {
 			res.redirect('/auth/login');
 		}
 		const foundExperience = await Experience.findById(req.params.id, req.body, {new: true})
@@ -178,8 +178,6 @@ router.get('/:id/edit', async (req,res, next) => {
 			userProfile: req.session.userDbId,
 			//variable to inject on navigation to profile.
 		})
-
-
 	} catch (err){
 		next(err)
 	}
