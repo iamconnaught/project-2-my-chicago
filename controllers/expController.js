@@ -79,7 +79,7 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 });
 
 
-// SERVE IMAGE ROUTE
+// EXPERIENCES CONTROLLER SERVE IMAGE ROUTE
 
 router.get('/:id/photo', async (req,res, next) => {
 
@@ -98,7 +98,7 @@ router.get('/:id/photo', async (req,res, next) => {
 })
 
 
-//INDEX PAGE ROUTE
+//EXPERIENCES INDEX PAGE ROUTE
 
 router.get('/', async(req,res,next)=>{
 	try {
@@ -118,7 +118,7 @@ router.get('/', async(req,res,next)=>{
 });
 
 
-//SHOW PAGE ROUTE
+//EXPERIENCES SHOW PAGE ROUTE
 
 router.get('/:id', async(req, res, next)=>{
 
@@ -142,7 +142,7 @@ router.get('/:id', async(req, res, next)=>{
 });
 
 
-//EDIT PAGE ROUTE
+//EXPERIENCES EDIT PAGE ROUTE
 
 router.get('/:id/edit', async (req,res, next) => {
 
@@ -163,7 +163,7 @@ router.get('/:id/edit', async (req,res, next) => {
 })
 
 
-// UPDATE ROUTE
+//EXPERIENCES UPDATE ROUTE
 
 router.put('/:id', async (req,res, next) => {
 
@@ -177,14 +177,14 @@ router.put('/:id', async (req,res, next) => {
 })
 
 
-//DELETE ROUTE
+//EXPERIENCES DELETE ROUTE
 
 router.delete('/:id', async (req,res, next) => {
 
 	try {
 		const deletedExperience = await Experience.findByIdAndRemove(req.params.id)
 		res.redirect('/experiences')
-		
+
 	} catch (err){
 		next(err)
 	}
