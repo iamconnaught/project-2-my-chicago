@@ -1,9 +1,15 @@
+/************************************************
+				AUTH CONTROLLER
+************************************************/
+
 const express = require('express');
 const router  = express.Router();
 const User 	  = require('../models/users')
 const session = require('express-session')
 const bcrypt  = require('bcryptjs')
 
+
+//LOGIN & REGISTER FORMS PAGE ROUTE
 
 router.get('/login', async (req,res) => {
 	try {
@@ -13,7 +19,10 @@ router.get('/login', async (req,res) => {
 	} catch (err){
 		res.send(err)
 	}
-})
+});
+
+
+//REGISTER ROUTE
 
 router.post('/register', async (req,res) => {
 	const password = req.body.password;
@@ -33,7 +42,10 @@ router.post('/register', async (req,res) => {
 	} catch (err){
 		res.send(err)
 	}
-})
+});
+
+
+//LOGIN ROUTE
 
 router.post('/login', async (req,res) => {
 	try {
@@ -63,6 +75,8 @@ router.post('/login', async (req,res) => {
 })
 
 
+//LOGOUT ROUTE
+
 router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if(err){
@@ -72,6 +86,7 @@ router.get('/logout', (req, res) => {
     }
   })
 })
+
 
 
 module.exports = router;

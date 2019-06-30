@@ -1,4 +1,4 @@
-//REQURED MODULES & FILES
+//REQUIRED MODULES & FILES
 
 const express        = require('express');
 const app            = express();
@@ -6,8 +6,10 @@ const bodyParser     = require('body-parser');
 const methodOverride = require('method-override');
 const session 		 = require('express-session')
 const bcrypt 		 = require('bcryptjs')
+
 require("dotenv").config();
 require('./db/db')
+
 
 //MIDDLEWARE
 
@@ -26,7 +28,6 @@ app.use(
 app.use(express.static('public'));
 
 
-
 //HOMEPAGE
 
 app.get('/', async (req,res) => {
@@ -38,6 +39,7 @@ app.get('/', async (req,res) => {
 		res.send(err)
 	}
 })
+
 
 //CONTROLLERS
 
@@ -52,7 +54,7 @@ app.use('/experiences', expController);
 
 
 
-
+//CONNECTING TO PORT 
 app.listen(process.env.PORT, () => {
 	console.log("Listening to PORT");
 })
