@@ -10,16 +10,6 @@ const sharp = require('sharp')
 const upload = multer({ dest: 'uploads/'})
 
 
-//auth requirement
-// router.use((req,res,next)=>{
-// 	try {
-// 		if(!req.session.logged){
-// 			res.redirect('/auth/login');
-// 		}
-// 	} catch(err){
-// 		next(err);
-// 	}
-// })
 
 
 //NEW
@@ -46,7 +36,7 @@ router.get('/map', async (req,res, next) => {
 	}
 })
 
-//CREATE EXPERIENCE UPLOAD 
+//CREATE EXPERIENCE WITH IMAGE UPLOAD 
 router.post('/', upload.single('img'), async(req, res, next)=>{
 	// console.log("uploading....===============");
 	try {
@@ -56,23 +46,11 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 		const filePath = './' + req.file.path
 		const thisExp = new Experience(req.body)
 		thisExp.ownerId = req.session.userDbId
-		console.log('thisExp.ownerId');
-		console.log(thisExp.ownerId);
 		thisExp.title = req.body.title
 		thisExp.body = req.body.body
-		// console.log(thisExp.body + "<==============");
 		thisExp.date = req.body.date
-		  // console.log(thisExp + "============");
 		thisExp.img.data = fs.readFileSync(filePath)
-		// thisExp.lat = navigator.geolocation.getCurrentPosition((lat) => {
-		// 	console.log(thisExp.lat);
-		// })
-		// thisExp.lng = navigator.geolocation.getCurrentPosition((lng) => {
-		// 	console.log(thisExp.lng);
-		// })
-		
 		await thisExp.save();
-		console.log(thisExp.body + ' This is the new experience');
 		const foundUser = await User.findById(req.session.userDbId)
 		foundUser.experience.push(thisExp);
 		await foundUser.save();
@@ -91,28 +69,12 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 router.get('/:id/photo', async (req,res, next) => {
 	try {
 		const foundExperience = await Experience.findById(req.params.id);
-		// console.log("\nfoundExperience.img");
-		// console.log(foundExperience.img);
-		// console.log("\nimage");
-		// console.log(foundExperience.img.data);
-		// res.set('Content-Type', foundExperience.img.contentType)
-		// res.send(foundExperience.img.data)
 		res.set('Content-Type', foundExperience.img.contentType)
 		const image = await sharp(foundExperience.img.data).rotate().toBuffer();
 		res.send(image);
 	} catch (err) {
 		next(err)
 	}
-	// Experience.findById(req.params.id, (err, foundExperience) => {
-	// 	if (err){
-	// 		next(err);
-	// 	} else {
-	// 		res.set('Content-Type', foundExperience.img.contentType)
-	// 		const image = await jimp.read(foundExperience.img.data)
-	// 		image.rotate(90);
-	// 		res.send(image)
-	// 	}
-	// })
 	
 })
 
@@ -142,19 +104,13 @@ router.get('/:id', async(req, res, next)=>{
 		if(!req.session.logged){
 			res.redirect('/auth/login');
 		}
-		// const foundUser = await User.findById(req.session.userDbId)
-		// 	.populate({path: 'experience', match: {_id: req.params.id}})
-		// console.log(foundUser);
 		const foundUser = await Experience.findById(req.params.id).populate('ownerId')
 		// console.log("\ndid it actually work?");
 		console.log('foundUser');
 		console.log(foundUser);
 		const exp = await Experience.findById(req.params.id)
-		// res.contentType(experience.img.contentType)
 		res.render('experiences/show.ejs',{
 			user: foundUser,
-			//message: 'you did it',
-			// experience: foundUser.experience[0]
 			experience: exp,
 			apiKey: process.env.API_KEY,
 			userProfile: req.session.userDbId//variable to inject on navigation to profile.

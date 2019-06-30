@@ -34,7 +34,6 @@
           zoom: 18
         });
         infoWindow = new google.maps.InfoWindow;
-        // Try HTML5 geolocation.
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             let pos = {
@@ -51,7 +50,6 @@
             handleLocationError(true, infoWindow, map.getCenter());
           });
         } else {
-          // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
         }
       }
@@ -69,16 +67,12 @@
 
 	 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=apiKey%>&callback=initMap" type="text/javascript"></script>
 	<script>
-		// get current position -- async 
-		// use DOM manipulation to insert that into the form element 
 		navigator.geolocation.getCurrentPosition((position) => {
 			const longitude = position.coords.longitude;
 			const latitude = position.coords.latitude;
 			console.log("lat, lng");
 			console.log(latitude, longitude);
-			// $('#lat').val(latitude)
 			document.getElementById('lat').value = latitude
-			// $('#lng').val(longitude)
 			document.getElementById('lng').value = longitude
 			console.log(document.getElementById('new-experience'));
 		})
