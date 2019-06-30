@@ -34,7 +34,6 @@ router.get('/new', (req, res)=> {
 });
 
 // MAP ROUTE
-
 router.get('/map', async (req,res, next) => {
 	try {
 		res.render('experiences/map.ejs', {
