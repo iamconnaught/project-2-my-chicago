@@ -1,30 +1,37 @@
+/************************************************
+				EXPERIENCES CONTROLLER
+************************************************/
+
 const express = require('express');
 const router = express.Router();
 const Experience = require('../models/experiences');
 const User = require('../models/users');
 const multer = require('multer');
 const fs = require('fs');
-// const fixOrientation = require('fix-orientation');
-// const jimp = require('jimp')
 const sharp = require('sharp')
 const upload = multer({ dest: 'uploads/'})
 
 
+//NEW EXPERIENCE FORM PAGE
 
-
-//NEW
 router.get('/new', (req, res)=> {
-	if(!req.session.logged){
+
+	if (!req.session.logged) {
 			res.redirect('/auth/login');
 		}
+
 	res.render('experiences/new.ejs', {
-		userProfile: req.session.userDbId,//variable to inject on navigation to profile.
+		userProfile: req.session.userDbId,
 		apiKey: process.env.API_KEY
-	});
+	})
+
 });
 
-// MAP ROUTE
+
+// GOOGLE MAP ROUTE
+
 router.get('/map', async (req,res, next) => {
+
 	try {
 		res.render('experiences/map.ejs', {
 			userProfile: req.session.userDbId, //variable to inject on navigation to profile.
@@ -34,15 +41,18 @@ router.get('/map', async (req,res, next) => {
 	} catch (err){
 		res.send(err)
 	}
-})
+});
+
 
 //CREATE EXPERIENCE WITH IMAGE UPLOAD 
+
 router.post('/', upload.single('img'), async(req, res, next)=>{
-	// console.log("uploading....===============");
+	
 	try {
 		if(!req.session.logged){
 			res.redirect('/auth/login');
 		}
+
 		const filePath = './' + req.file.path
 		const thisExp = new Experience(req.body)
 		thisExp.ownerId = req.session.userDbId
@@ -51,34 +61,45 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 		thisExp.date = req.body.date
 		thisExp.img.data = fs.readFileSync(filePath)
 		await thisExp.save();
+
 		const foundUser = await User.findById(req.session.userDbId)
 		foundUser.experience.push(thisExp);
 		await foundUser.save();
+
 		await fs.unlink(filePath, (err) => {
 			if(err) next(err);
 		})
-		// console.log(foundUser + "=========");
+		
 		res.redirect('/experiences')
+
 	} catch(err){
 		next(err);
 	}
 
 });
 
+
 // SERVE IMAGE ROUTE
+
 router.get('/:id/photo', async (req,res, next) => {
+
 	try {
 		const foundExperience = await Experience.findById(req.params.id);
 		res.set('Content-Type', foundExperience.img.contentType)
 		const image = await sharp(foundExperience.img.data).rotate().toBuffer();
 		res.send(image);
+
 	} catch (err) {
+
 		next(err)
+
 	}
 	
 })
 
-//INDEX
+
+//INDEX PAGE ROUTE
+
 router.get('/', async(req,res,next)=>{
 	try {
 		if(!req.session.logged){
@@ -97,64 +118,73 @@ router.get('/', async(req,res,next)=>{
 });
 
 
-//SHOW
+//SHOW PAGE ROUTE
 
 router.get('/:id', async(req, res, next)=>{
+
 	try {
 		if(!req.session.logged){
 			res.redirect('/auth/login');
 		}
+
 		const foundUser = await Experience.findById(req.params.id).populate('ownerId')
-		// console.log("\ndid it actually work?");
-		console.log('foundUser');
-		console.log(foundUser);
 		const exp = await Experience.findById(req.params.id)
 		res.render('experiences/show.ejs',{
 			user: foundUser,
 			experience: exp,
 			apiKey: process.env.API_KEY,
-			userProfile: req.session.userDbId//variable to inject on navigation to profile.
+			userProfile: req.session.userDbId
 		})
+
 	} catch(err){
 		next(err);
 	}
 });
 
 
-//EDIT
+//EDIT PAGE ROUTE
+
 router.get('/:id/edit', async (req,res, next) => {
+
 	try {
 		if(!req.session.logged) {
 			res.redirect('/auth/login');
 		}
+
 		const foundExperience = await Experience.findById(req.params.id, req.body, {new: true})
 		res.render('experiences/edit.ejs', {
 			experience: foundExperience,
 			userProfile: req.session.userDbId,
-			//variable to inject on navigation to profile.
 		})
+
 	} catch (err){
 		next(err)
 	}
 })
 
 
-// UPDATE
+// UPDATE ROUTE
+
 router.put('/:id', async (req,res, next) => {
+
 	try {
 		const updatedExperience = await Experience.findByIdAndUpdate(req.params.id, req.body, {new: true})
 		res.redirect('/experiences/' + req.params.id)
+
 	} catch (err){
 		next(err)
 	}
 })
 
 
-//DELETE
+//DELETE ROUTE
+
 router.delete('/:id', async (req,res, next) => {
+
 	try {
 		const deletedExperience = await Experience.findByIdAndRemove(req.params.id)
 		res.redirect('/experiences')
+		
 	} catch (err){
 		next(err)
 	}
