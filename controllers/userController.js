@@ -42,6 +42,7 @@ router.get('/:id', async (req,res) => {
 		res.render('users/show.ejs', {
 			user: foundUser,
 			userProfile: req.session.userDbId
+		})
 
 	} catch (err){
 		res.send(err)

@@ -7,13 +7,14 @@
 		<button>Login</button>
 	</form>
 
-	<small><%=message%></small>
+	<small><%=loginMessage%></small>
 
 	<h1>Register</h1>
 	<form action="/auth/register" method="POST">
 		<input type="text" name="username" placeholder="username">
 		<input type="password" name="password" placeholder="password">
 		<button>Register</button>
+		<small><%=regMessage%></small>
 	</form>
 </div>
 </body>

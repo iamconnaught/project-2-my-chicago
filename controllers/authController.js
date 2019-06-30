@@ -14,7 +14,8 @@ const bcrypt  = require('bcryptjs')
 router.get('/login', async (req,res) => {
 	try {
 		res.render('login.ejs',{
-			message: req.session.message
+			loginMessage: req.session.loginMessage,
+			regMessage: req.session.regMessage
 		})	
 	} catch (err){
 		res.send(err)
@@ -24,24 +25,35 @@ router.get('/login', async (req,res) => {
 
 //REGISTER ROUTE
 
-router.post('/register', async (req,res) => {
-	const password = req.body.password;
-	const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+router.post('/register', async (req,res,next) => {
 
-	const userDbEntry = {};
-	userDbEntry.username = req.body.username;
-	userDbEntry.password = passwordHash;
+		try {
+			if (req.body.username === "" || req.body.password === "") {
+				req.session.regMessage = "Please enter username or password"
+				res.redirect("/auth/login")
+			} else if (req.body.username !== "" || req.body.password !== "") {
+				const userExists = await User.findOne({'username': req.body.username});
+				if (userExists){
+					req.session.regMessage = "Username is already taken."
+					res.redirect('/auth/login')
+				}
+			} else {
+			const password = req.body.password;
+			const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+			const userDbEntry = {};
+			userDbEntry.username = req.body.username;
+			userDbEntry.password = passwordHash;
 
-	try {
-		const createdUser = await User.create(userDbEntry);	
-		req.session.logged = true;
-		req.session.userDbId = createdUser._id;
-		console.log(createdUser);
+			const createdUser = await User.create(userDbEntry);	
+			req.session.logged = true;
+			req.session.userDbId = createdUser._id;
+			res.redirect('/users/' + createdUser._id);
+			}
 
-		res.redirect('/users/' + createdUser._id)
-	} catch (err){
-		res.send(err)
-	}
+		} catch (err){
+			next(err)
+		}
+	
 });
 
 
@@ -50,7 +62,7 @@ router.post('/register', async (req,res) => {
 router.post('/login', async (req,res) => {
 	try {
 		const foundUser = await User.findOne({'username': req.body.username});
-		if(foundUser){
+		if (foundUser){
 			if (bcrypt.compareSync(req.body.password, foundUser.password)=== true) {
 				req.session.message = '';
 				req.session.logged = true;
@@ -58,12 +70,12 @@ router.post('/login', async (req,res) => {
 				console.log(req.session, ' logged in!');
 				res.redirect('/users/' + foundUser._id)
 			}else{
-				req.session.message = "Username or Password is incorrect";
+				req.session.loginMessage = "Username or Password is incorrect";
 				res.redirect('/auth/login');
 			}
 
 		} else{
-			req.session.message = "Username or Password is incorrect";
+			req.session.loginMessage = "Username or Password is incorrect";
 			res.redirect('/auth/login');
 		}
 
