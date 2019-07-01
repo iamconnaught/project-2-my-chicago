@@ -22,6 +22,12 @@ app.use(express.static('public'));
 //AUTH CONTROLLER
 const authController = require('./controllers/authController');
 app.use('/auth', authController);
+//CONTROLLERS
+const userController = require('./controllers/userController');
+app.use('/users', userController)
+const expController = require('./controllers/expController');
+app.use('/experiences', expController);
+
 
 //HOMEPAGE
 app.get('/', async (req,res) => {
@@ -39,12 +45,6 @@ app.get('/', async (req,res) => {
 // 		res.redirect('/auth/login')
 // 	}
 // })
-
-//CONTROLLERS
-const userController = require('./controllers/userController');
-app.use('/users', userController)
-const expController = require('./controllers/expController');
-app.use('/experiences', expController);
 
 
 
