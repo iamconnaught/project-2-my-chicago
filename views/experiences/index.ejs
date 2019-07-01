@@ -1,5 +1,6 @@
 <%- include ../partials/header.ejs %>
 	<div class="navigation">
+		<span>Welcome <%=currentUser%>!</span>
 		<nav>
 			<a href="/users/<%=userProfile%>">Profile</a>
 			<!-- user show page -->
@@ -13,6 +14,7 @@
 	</div class="userExpIndexBox">
 		<div class="indexTitle">
 			<h2>MyChicago Gallery</h2>
+			<a href="/experiences/new">Add a new experience!</a>
 		</div>
 		<div class="experiencesList">
 			<ul>
