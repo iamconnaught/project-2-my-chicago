@@ -36,25 +36,26 @@ router.post('/register', async (req,res,next) => {
 			} else if (req.body.username !== "" || req.body.password !== "") {
 
 				const userExists = await User.findOne({'username': req.body.username});
+				
 				if (userExists){
 					req.session.regMessage = "Username is already taken."
 					res.redirect('/auth/login')
+
+				} else if (!userExists) {
+
+				const password = req.body.password;
+				const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+				const userDbEntry = {};
+				userDbEntry.username = req.body.username;
+				userDbEntry.password = passwordHash;
+
+				const createdUser = await User.create(userDbEntry);	
+				req.session.logged = true;
+				req.session.userDbId = createdUser._id;
+				res.redirect('/users/' + createdUser._id);
+
 				}
-
-			} else {
-
-			const password = req.body.password;
-			const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
-			const userDbEntry = {};
-			userDbEntry.username = req.body.username;
-			userDbEntry.password = passwordHash;
-
-			const createdUser = await User.create(userDbEntry);	
-			req.session.logged = true;
-			req.session.userDbId = createdUser._id;
-			res.redirect('/users/' + createdUser._id);
-
-			}
+			}	
 
 		} catch (err){
 			next(err)
