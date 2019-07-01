@@ -21,7 +21,8 @@ router.get('/', async (req,res) => {
 
 		res.render('users/index.ejs', {
 			users:foundUsers,
-			userProfile: req.session.userDbId
+			userProfile: req.session.userDbId,
+			currentUser: req.session.username
 		})
 
 	} catch (err){
@@ -41,7 +42,8 @@ router.get('/:id', async (req,res) => {
 
 		res.render('users/show.ejs', {
 			user: foundUser,
-			userProfile: req.session.userDbId
+			userProfile: req.session.userDbId,
+			currentUser: req.session.username
 		})
 
 	} catch (err){

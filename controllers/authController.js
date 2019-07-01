@@ -51,6 +51,7 @@ router.post('/register', async (req,res,next) => {
 
 				const createdUser = await User.create(userDbEntry);	
 				req.session.logged = true;
+				req.session.username =req.body.username
 				req.session.userDbId = createdUser._id;
 				res.redirect('/users/' + createdUser._id);
 
@@ -84,6 +85,7 @@ router.post('/login', async (req,res) => {
 
 				req.session.message = '';
 				req.session.logged = true;
+				req.session.username =req.body.username
 				req.session.userDbId = foundUser._id;
 				console.log(req.session, ' logged in!');
 				res.redirect('/users/' + foundUser._id);

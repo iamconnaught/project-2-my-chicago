@@ -22,6 +22,7 @@ router.get('/new', (req, res)=> {
 
 	res.render('experiences/new.ejs', {
 		userProfile: req.session.userDbId,
+		currentUser: req.session.username,
 		apiKey: process.env.API_KEY,
 		createMessage: req.session.createMessage
 	})
@@ -118,7 +119,8 @@ router.get('/', async(req,res,next)=>{
 
 		res.render('experiences/index.ejs',{
 		experiences: foundExperiences,
-		userProfile: req.session.userDbId
+		userProfile: req.session.userDbId,
+		currentUser: req.session.username
 		})
 
 	} catch(err){
@@ -144,7 +146,8 @@ router.get('/:id', async(req, res, next)=>{
 			experience: exp,
 			editMessage: req.session.editMessage,
 			apiKey: process.env.API_KEY,
-			userProfile: req.session.userDbId
+			userProfile: req.session.userDbId,
+			currentUser: req.session.username
 		})
 
 	} catch(err){
@@ -173,7 +176,8 @@ router.get('/:id/edit', async (req,res, next) => {
 		res.render('experiences/edit.ejs', {
 			experience: foundExperience,
 			editMessage: req.session.editMessage,
-			userProfile: req.session.userDbId
+			userProfile: req.session.userDbId,
+			currentUser: req.session.username
 		})
 
 		}
