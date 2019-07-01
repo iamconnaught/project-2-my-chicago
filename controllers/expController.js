@@ -166,7 +166,7 @@ router.get('/:id/edit', async (req,res, next) => {
 			).populate('owner');
 		
 		if(req.session.userDbId.toString() !== foundExperience.owner._id.toString()) {
-			req.session.editMessage = "Unable to edit post"
+			req.session.editMessage = "Unable to edit or delete post"
 			res.redirect(`/experiences/${req.params.id}`)
 		} else {
 
@@ -211,6 +211,7 @@ router.put('/:id', async (req,res,next) => {
 router.delete('/:id', async (req,res, next) => {
 
 	try {
+
 		const deletedExperience = await Experience.findByIdAndRemove(req.params.id)
 		res.redirect('/experiences')
 
