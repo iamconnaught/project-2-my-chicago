@@ -22,7 +22,8 @@ router.get('/new', (req, res)=> {
 
 	res.render('experiences/new.ejs', {
 		userProfile: req.session.userDbId,
-		apiKey: process.env.API_KEY
+		apiKey: process.env.API_KEY,
+		createMessage: req.session.createMessage
 	})
 
 });
@@ -34,7 +35,6 @@ router.get('/map', async (req,res, next) => {
 
 	try {
 		res.render('experiences/map.ejs', {
-			// userProfile: req.session.userDbId,
 			apiKey: process.env.API_KEY
 		})
 		
@@ -53,24 +53,30 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 			res.redirect('/auth/login');
 		}
 
-		const filePath = './' + req.file.path
 		const thisExp = new Experience(req.body)
 		thisExp.owner = req.session.userDbId
 		thisExp.title = req.body.title
 		thisExp.body = req.body.body
 		thisExp.date = req.body.date
+
+		if(thisExp.title === "" || thisExp.body === "" || !req.file){
+			req.session.createMessage = "Please enter title, body or upload image"
+			res.redirect("/experiences/new")
+		}
+
+		const filePath = './' + req.file.path
 		thisExp.img.data = fs.readFileSync(filePath)
+		await fs.unlink(filePath, (err) => {
+			if(err) next(err);
+		})
+
 		await thisExp.save();
 
 		const foundUser = await User.findById(req.session.userDbId)
 		foundUser.experience.push(thisExp);
 		await foundUser.save();
 
-		await fs.unlink(filePath, (err) => {
-			if(err) next(err);
-		})
-		
-		res.redirect('/experiences')
+		res.redirect(`/users/${req.session.userDbId}`)
 
 	} catch(err){
 		next(err);
@@ -158,11 +164,7 @@ router.get('/:id/edit', async (req,res, next) => {
 		const foundExperience = await Experience.findById(
 			req.params.id, req.body, {new: true}
 			).populate('owner');
-		console.log("<=================>");
-		console.log(foundExperience.owner._id);
-		console.log("<==== req.session.userDbId====>")
-		console.log(req.session.userDbId);
-
+		
 		if(req.session.userDbId.toString() !== foundExperience.owner._id.toString()) {
 			req.session.editMessage = "Unable to edit post"
 			res.redirect(`/experiences/${req.params.id}`)
