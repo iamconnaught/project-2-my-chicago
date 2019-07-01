@@ -29,15 +29,20 @@ router.post('/register', async (req,res,next) => {
 
 		try {
 			if (req.body.username === "" || req.body.password === "") {
-				req.session.regMessage = "Please enter username or password"
+
+				req.session.regMessage = "Please enter Username or Password"
 				res.redirect("/auth/login")
+
 			} else if (req.body.username !== "" || req.body.password !== "") {
+
 				const userExists = await User.findOne({'username': req.body.username});
 				if (userExists){
 					req.session.regMessage = "Username is already taken."
 					res.redirect('/auth/login')
 				}
+
 			} else {
+
 			const password = req.body.password;
 			const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 			const userDbEntry = {};
@@ -48,6 +53,7 @@ router.post('/register', async (req,res,next) => {
 			req.session.logged = true;
 			req.session.userDbId = createdUser._id;
 			res.redirect('/users/' + createdUser._id);
+
 			}
 
 		} catch (err){
@@ -60,21 +66,33 @@ router.post('/register', async (req,res,next) => {
 //LOGIN ROUTE
 
 router.post('/login', async (req,res) => {
+
 	try {
+		if (req.body.username === "" || req.body.password === "") {
+
+				req.session.loginMessage = "Please enter Username or Password."
+				res.redirect("/auth/login")
+
+			}
+
 		const foundUser = await User.findOne({'username': req.body.username});
+
 		if (foundUser){
+
 			if (bcrypt.compareSync(req.body.password, foundUser.password)=== true) {
+
 				req.session.message = '';
 				req.session.logged = true;
 				req.session.userDbId = foundUser._id;
 				console.log(req.session, ' logged in!');
-				res.redirect('/users/' + foundUser._id)
-			}else{
+				res.redirect('/users/' + foundUser._id);
+
+			} else {
 				req.session.loginMessage = "Username or Password is incorrect";
 				res.redirect('/auth/login');
 			}
 
-		} else{
+		} else {
 			req.session.loginMessage = "Username or Password is incorrect";
 			res.redirect('/auth/login');
 		}
@@ -90,14 +108,19 @@ router.post('/login', async (req,res) => {
 //LOGOUT ROUTE
 
 router.get('/logout', (req, res) => {
+
   req.session.destroy((err) => {
+
     if(err){
       res.send(err);
+
     } else {
       res.redirect('/auth/login');
     }
+
   })
-})
+
+});
 
 
 

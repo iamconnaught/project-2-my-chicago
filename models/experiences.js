@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const user = require('./users')
 
 const expSchema = new mongoose.Schema({
-	ownerId: {
+	owner: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
 	},

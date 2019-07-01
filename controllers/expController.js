@@ -34,7 +34,7 @@ router.get('/map', async (req,res, next) => {
 
 	try {
 		res.render('experiences/map.ejs', {
-			userProfile: req.session.userDbId, //variable to inject on navigation to profile.
+			// userProfile: req.session.userDbId,
 			apiKey: process.env.API_KEY
 		})
 		
@@ -55,7 +55,7 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 
 		const filePath = './' + req.file.path
 		const thisExp = new Experience(req.body)
-		thisExp.ownerId = req.session.userDbId
+		thisExp.owner = req.session.userDbId
 		thisExp.title = req.body.title
 		thisExp.body = req.body.body
 		thisExp.date = req.body.date
@@ -101,16 +101,20 @@ router.get('/:id/photo', async (req,res, next) => {
 //EXPERIENCES INDEX PAGE ROUTE
 
 router.get('/', async(req,res,next)=>{
+
 	try {
 		if(!req.session.logged){
 			res.redirect('/auth/login');
 		}
+
 		const foundUsers = await User.find({});
 		const foundExperiences =  await Experience.find({});
-	res.render('experiences/index.ejs',{
+
+		res.render('experiences/index.ejs',{
 		experiences: foundExperiences,
-		userProfile: req.session.userDbId//variable to inject on navigation to profile.
+		userProfile: req.session.userDbId
 		})
+
 	} catch(err){
 		next(err);
 	}
@@ -127,11 +131,12 @@ router.get('/:id', async(req, res, next)=>{
 			res.redirect('/auth/login');
 		}
 
-		const foundUser = await Experience.findById(req.params.id).populate('ownerId')
+		const foundUser = await Experience.findById(req.params.id).populate('owner')
 		const exp = await Experience.findById(req.params.id)
 		res.render('experiences/show.ejs',{
 			user: foundUser,
 			experience: exp,
+			editMessage: req.session.editMessage,
 			apiKey: process.env.API_KEY,
 			userProfile: req.session.userDbId
 		})
@@ -150,12 +155,26 @@ router.get('/:id/edit', async (req,res, next) => {
 		if(!req.session.logged) {
 			res.redirect('/auth/login');
 		}
+		const foundExperience = await Experience.findById(
+			req.params.id, req.body, {new: true}
+			).populate('owner');
+		console.log("<=================>");
+		console.log(foundExperience.owner._id);
+		console.log("<==== req.session.userDbId====>")
+		console.log(req.session.userDbId);
 
-		const foundExperience = await Experience.findById(req.params.id, req.body, {new: true})
+		if(req.session.userDbId.toString() !== foundExperience.owner._id.toString()) {
+			req.session.editMessage = "Unable to edit post"
+			res.redirect(`/experiences/${req.params.id}`)
+		} else {
+
 		res.render('experiences/edit.ejs', {
 			experience: foundExperience,
-			userProfile: req.session.userDbId,
+			editMessage: req.session.editMessage,
+			userProfile: req.session.userDbId
 		})
+
+		}
 
 	} catch (err){
 		next(err)
@@ -165,10 +184,18 @@ router.get('/:id/edit', async (req,res, next) => {
 
 //EXPERIENCES UPDATE ROUTE
 
-router.put('/:id', async (req,res, next) => {
+router.put('/:id', async (req,res,next) => {
 
 	try {
-		const updatedExperience = await Experience.findByIdAndUpdate(req.params.id, req.body, {new: true})
+		if(req.body.title === "" || req.body.body === ""){
+			req.session.editMessage = "Please enter title or body"
+			res.redirect("/experiences/" + req.params.id + "/edit")
+		}
+
+		const updatedExperience = await Experience.findByIdAndUpdate(
+			req.params.id, req.body, {new: true}
+			);
+
 		res.redirect('/experiences/' + req.params.id)
 
 	} catch (err){
