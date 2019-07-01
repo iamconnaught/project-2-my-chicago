@@ -1,20 +1,28 @@
+/************************************************
+				USER CONTROLLER
+************************************************/
+
 const express = require('express');
 const router = express.Router();
 const User = require('../models/users')
 const Experience = require('../models/experiences')
 
-//INDEX
+
+//USER INDEX PAGE ROUTE
+
 router.get('/', async (req,res) => {
+
 	try {
 		if(!req.session.logged){
 			res.redirect('/auth/login')
 		}	
+
 		const foundUsers = await User.find({}); 
-		// console.log("\nfoundUsers in the user indx route");
-		// console.log(foundUsers);
+
 		res.render('users/index.ejs', {
 			users:foundUsers,
-			userProfile: req.session.userDbId//variable to inject on navigation to profile.
+			userProfile: req.session.userDbId,
+			currentUser: req.session.username
 		})
 
 	} catch (err){
@@ -22,7 +30,9 @@ router.get('/', async (req,res) => {
 	}
 })
 
-//SHOW
+
+//USER SHOW PAGE ROUTE
+
 router.get('/:id', async (req,res) => {
 	try {
 		if(!req.session.logged){
@@ -30,12 +40,10 @@ router.get('/:id', async (req,res) => {
 		}
 		const foundUser = await User.findById(req.params.id).populate('experience')
 
-		// console.log("\nhere is found user (based on session) in user show route");
-		// console.log(foundUser);
-
 		res.render('users/show.ejs', {
 			user: foundUser,
-			userProfile: req.session.userDbId//variable to inject on navigation to profile.
+			userProfile: req.session.userDbId,
+			currentUser: req.session.username
 		})
 
 	} catch (err){
@@ -43,7 +51,9 @@ router.get('/:id', async (req,res) => {
 	}
 })
 
-//serve image route
+
+//USER CONTROLLER SERVE IMAGE ROUTE
+
 router.get('/:id/photo', (req,res, next) => {
 	Experience.findById(req.params.id, (err, foundExperience) => {
 		if (err){

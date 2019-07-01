@@ -1,10 +1,11 @@
 <%- include ../partials/header.ejs %>
 		
 <div class="navigation">
+	<span>Welcome <%=currentUser%>!</span>
 		<nav>
 			<a href="/users/<%=userProfile%>">Profile</a>
 			<!-- user show page -->
-			<a href="/experiences">Experiences</a>
+			<a href="/experiences">MyChicago Gallery</a>
 			<!-- experiences index-->
 			<a href="/users">Users</a>
 			<!-- users index -->
@@ -19,7 +20,7 @@
 			<textarea name="body" form="new-eperience"><%=experience.body%></textarea><br>
 			<button>Update my experience</button>
 		</form>
-
+		<h3><%=editMessage%></h3>
 		<form action="/experiences/<%=experience._id%>?_method=DELETE" method="post">
 		<button>Delete Experience</button>
 		</form>

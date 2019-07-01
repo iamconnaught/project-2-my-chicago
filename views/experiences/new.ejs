@@ -1,9 +1,10 @@
 <%- include ../partials/header.ejs %>
-<div class="navigation">
+	<div class="navigation">
+		<span>Welcome <%=currentUser%>!</span>
 		<nav>
 			<a href="/users/<%=userProfile%>">Profile</a>
 			<!-- user show page -->
-			<a href="/experiences">Experiences</a>
+			<a href="/experiences">MyChicago Gallery</a>
 			<!-- experiences index-->
 			<a href="/users">Users</a>
 			<!-- users index -->
@@ -13,6 +14,7 @@
 	</div>
 	<div class="newExpContainer">
 	<h1>Add a new experience</h1>
+		<h3><%=createMessage%></h3>
 		<form id="new-experience" action="/experiences" method="post" enctype="multipart/form-data">
 			Title: <input type="text" name="title" maxlength="22" placeholder="Enter title"><br>
 			Image:<input type="file" name="img"><br>

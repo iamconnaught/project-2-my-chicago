@@ -1,9 +1,11 @@
 <%- include ../partials/header.ejs %>
-<div class="navigation">
+
+  <div class="navigation">
+    <span>Welcome <%=currentUser%>!</span>
 		<nav>
 			<a href="/users/<%=userProfile%>">Profile</a>
 			<!-- user show page -->
-			<a href="/experiences">Experiences</a>
+			<a href="/experiences">MyChicago Gallery</a>
 			<!-- experiences index-->
 			<a href="/users">Users</a>
 			<!-- users index -->
@@ -11,14 +13,17 @@
 			<a href="/auth/logout">Log Out</a>
 		</nav>
 	</div>
+
 	<div class="showContainer">
 		<h1><%=experience.title%></h1>
 		<img src="/experiences/<%=experience._id%>/photo" height="400px"><br>
-		<h2>By: <%=user.ownerId.username%></h2>
+		<h2>By: <%=user.owner.username%></h2>
 		<p><%=experience.date.toDateString()%></p>
 		<p id="bodyText"><%=experience.body%></p>
-		<div id="map">
+		
+    <div id="map">
 		</div>
+
 	</div>
 <br>
 
@@ -66,4 +71,6 @@
 
 <a href="/experiences/<%=experience._id%>/edit">Edit/Delete</a>
 </div>
+<h3><%=editMessage%></h3>
+
 <%- include ../partials/footer.ejs %>

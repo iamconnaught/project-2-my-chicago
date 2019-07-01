@@ -1,9 +1,10 @@
 <%- include ../partials/header.ejs %>
 <div class="navigation">
+	<span>Welcome <%=currentUser%>!</span>
 		<nav>
 			<a href="/users/<%=userProfile%>">Profile</a>
 			<!-- user show page -->
-			<a href="/experiences">Experiences</a>
+			<a href="/experiences">MyChicago Gallery</a>
 			<!-- experiences index-->
 			<a href="/users">Users</a>
 			<!-- users index -->
@@ -12,10 +13,15 @@
 		</nav>
 	</div>
 
-<h1><%=user.username%></h1>
+<!-- <h1><%=user.username%></h1> -->
 	<div class="userExpIndexBox">
 		<div class="indexTitle">
-			<h2>Your Experiences</h2>
+			<h2><%=user.username%> Gallery</h2>
+
+			<%if (currentUser == user.username){%>
+			<a href="/experiences/new">Add a new experience!</a>
+			<%}%>
+
 		</div>
 		<div class="experiencesList">
 			<ul>
@@ -31,6 +37,5 @@
 			</ul>
 		</div>
 	</div>
-<h2><a href="/experiences/new">Create a new Experience</a></h2>
 
 <%- include ../partials/footer.ejs %>
