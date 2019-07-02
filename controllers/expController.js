@@ -72,7 +72,7 @@ router.post('/', upload.single('img'), async(req, res, next)=>{
 		})
 
 		await thisExp.save();
-
+		console.log(thisExp);
 		const foundUser = await User.findById(req.session.userDbId)
 		foundUser.experience.push(thisExp);
 		await foundUser.save();

@@ -15,62 +15,76 @@
 	</div>
 
 	<div class="showContainer">
-		<h1><%=experience.title%></h1>
-		<img src="/experiences/<%=experience._id%>/photo" height="400px"><br>
-		<h2>By: <%=user.owner.username%></h2>
-		<p><%=experience.date.toDateString()%></p>
-		<p id="bodyText"><%=experience.body%></p>
-		
-    <div id="map">
-		</div>
+    <div class="img-box">
+      <img src="/experiences/<%=experience._id%>/photo"><br>
+    </div>
+		<div class="post-details-showpage">
+      <div class="details-text">
+        <p><%=experience.title%></p>
+        <p>By: <%=user.owner.username%> / <%=experience.date.toDateString()%></p>
+        <p><%=experience.body%></p>
+	   </div>
+    </div>
+  </div>
 
-	</div>
-<br>
+     <%if(experience.lat === null) {%>
+      <div class="alert-location">
+        <p class="alert">"Sorry, we were not able to access the location for your post."</p>
+      </div>
 
-<script>
-		let map, infoWindow;
-      	function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 41.8781, lng: -87.6231},
-          zoom: 18
-        });
-        infoWindow = new google.maps.InfoWindow;
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            let pos = {
-              lat: <%=experience.lat%>,
-              lng: <%=experience.lng%>
-            };
+    <%}else if(experience.lat !== null) {%>
+      <div class="map-box">
+        <div id="map">
+    		</div>
+      </div>
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('<%=experience.title%>');
-            infoWindow.open(map);
-            map.setCenter(pos);
-            let marker = new google.maps.Marker({position: pos, map: map});
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
+    <%}%>
+   
+  <div class="edit-delete-link-showpage">
+    <a href="/experiences/<%=experience._id%>/edit">Edit/Delete</a>
+    <span class="alert"><%=editMessage%></span>
+  </div>
+  <br>
+
+  <script>
+  		let map, infoWindow;
+        	function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 41.8781, lng: -87.6231},
+            zoom: 18
           });
-        } else {
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      }
+          infoWindow = new google.maps.InfoWindow;
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              let pos = {
+                lat: <%=experience.lat%>,
+                lng: <%=experience.lng%>
+              };
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-      }
-		
-    </script>
+              infoWindow.setPosition(pos);
+              infoWindow.setContent('<%=experience.title%>');
+              infoWindow.open(map);
+              map.setCenter(pos);
+              let marker = new google.maps.Marker({position: pos, map: map});
+            }, function() {
+              handleLocationError(true, infoWindow, map.getCenter());
+            });
+          } else {
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+          infoWindow.setPosition(pos);
+          infoWindow.setContent(browserHasGeolocation ?
+                                'Error: The Geolocation service failed.' :
+                                'Error: Your browser doesn\'t support geolocation.');
+          infoWindow.open(map);
+        }
+  		
+      </script>
 
 
 	 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=apiKey%>&callback=initMap" type="text/javascript"></script>
-
-
-<a href="/experiences/<%=experience._id%>/edit">Edit/Delete</a>
-</div>
-<h3><%=editMessage%></h3>
 
 <%- include ../partials/footer.ejs %>

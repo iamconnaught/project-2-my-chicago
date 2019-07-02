@@ -45,6 +45,10 @@ h2 {
 	padding: 3px 20px;
 }
 
+.welcome {
+	 justify-content: flex-end;
+}
+
 a {
 	text-decoration: none;
 	padding: 5px;
@@ -76,12 +80,8 @@ li {
 	margin-left: 10px;
 }
 
-p {
-	padding: 10px;
-}
-
-.logRegbox {
-	padding-left: 20px;
+.logRegBox {
+	margin-left: 50px;
 }
 
 .home {
@@ -164,15 +164,84 @@ p {
 }
 
 .showContainer {
+	border: 1px solid lightblue;
 	align-self: center;
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-content: space-between;
 	text-align: center;
 	word-break: break-word;
+	margin:10px;
+	max-height: 600px;
+	width: 80%;
+}
+
+img {
+	max-height:100%;
+	max-width:100%;
+}
+
+.img-box{
+	border: 1px solid lightblue;
+	background-color: lightblue;
+	max-height: 600px;
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+.post-details-showpage {
+	max-height: 600px;
 	width: 50%;
 }
+
+.details-text {
+	height: 100%;
+	padding:0 5px;
+}
+
+
+.map-box {
+	display: flex;
+	align-self: center;
+	height: 200px;
+	width: 80%;
+}
+
+#map {
+	height: 100%;
+	width: 100%;
+}
+
+
+.edit-delete-link-showpage {
+	text-align: center;
+	padding: 10px;
+}
+
+.alert {
+	color: red;
+}
+
+.alert-location {
+	background-image: linear-gradient(
+		to right, 
+		rgba(265,265,265,0.9),
+		rgba(265,265,265,0.6)),
+	url(https://i.imgur.com/oaJRqk5.png?1);
+	background-size: cover;
+	background-position: center;
+	border: 1px solid lightblue;
+	display: flex;
+	align-self: center;
+	justify-content: center;
+	align-items: flex-end;
+	height: 100px;
+	width: 80%;
+}
+
 
 .newExpContainer {
 	align-self: center;
@@ -210,17 +279,7 @@ textarea {
 	font-size: 14pt;
 }
 
-#map {
-	margin: 30px;
-	height: 400px;
-	width: 95%;
-}
 
-hr { 
-	margin-top: 20px;
-    border-style: inset;
-    border-width: 1px;
-}
 
 footer {
 	width: 100%;
