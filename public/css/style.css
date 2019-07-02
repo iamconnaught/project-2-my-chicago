@@ -210,7 +210,7 @@ img {
 	width: 80%;
 }
 
-#map {
+#map-showpage {
 	height: 100%;
 	width: 100%;
 }
@@ -264,6 +264,12 @@ img {
 	align-content: space-around;
 	font-size: 16pt;
 	text-align: center;
+}
+
+#map {
+	margin: 10px;
+	height: 400px;
+	width: 90%;
 }
 
 input {

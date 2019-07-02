@@ -30,12 +30,14 @@ router.get('/new', (req, res)=> {
 });
 
 
-// GOOGLE MAP ROUTE
+// GOOGLE MAP ROUTE *future feature*
 
 router.get('/map', async (req,res, next) => {
 
 	try {
 		res.render('experiences/map.ejs', {
+			userProfile: req.session.userDbId,
+			currentUser: req.session.username,
 			apiKey: process.env.API_KEY
 		})
 		
